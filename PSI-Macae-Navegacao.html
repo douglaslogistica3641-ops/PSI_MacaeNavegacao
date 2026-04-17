@@ -1,0 +1,2857 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PSI — Macaé Navegação</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --azul-profundo:#0b2545;
+    --azul-medio:#13315c;
+    --azul-claro:#1e4976;
+    --marfim:#f7f3ec;
+    --marfim-escuro:#ebe4d6;
+    --ouro:#c9a96e;
+    --ouro-escuro:#a68651;
+    --tinta:#1a1a1a;
+    --tinta-suave:#3d3d3d;
+    --linha:#d6cdb8;
+    --papel:#fbf8f1;
+    --sucesso:#2d5f3f;
+    --alerta:#8b5a2b;
+    --perigo:#7a2e2e;
+    --sombra-sutil:0 1px 2px rgba(11,37,69,0.06),0 2px 8px rgba(11,37,69,0.04);
+    --sombra-media:0 4px 16px rgba(11,37,69,0.08),0 2px 6px rgba(11,37,69,0.06);
+    --sombra-forte:0 12px 40px rgba(11,37,69,0.12),0 4px 12px rgba(11,37,69,0.08);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+
+html{scroll-behavior:smooth;}
+
+body{
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,sans-serif;
+    background:var(--marfim);
+    color:var(--tinta);
+    font-size:15px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    background-image:
+        radial-gradient(circle at 15% 10%,rgba(201,169,110,0.04) 0%,transparent 40%),
+        radial-gradient(circle at 85% 90%,rgba(11,37,69,0.03) 0%,transparent 40%);
+    background-attachment:fixed;
+}
+
+/* Tipografia */
+.serif{font-family:"Cormorant Garamond",Georgia,serif;}
+
+h1,h2,h3,h4{
+    font-family:"Cormorant Garamond",Georgia,serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    color:var(--azul-profundo);
+}
+
+/* ============ HEADER ============ */
+header{
+    background:linear-gradient(135deg,var(--azul-profundo) 0%,var(--azul-medio) 100%);
+    color:var(--marfim);
+    padding:0 40px;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    height:72px;
+    z-index:100;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    box-shadow:var(--sombra-forte);
+    border-bottom:1px solid rgba(201,169,110,0.3);
+}
+
+header::before{
+    content:"";
+    position:absolute;
+    top:0;left:0;right:0;
+    height:3px;
+    background:linear-gradient(90deg,transparent,var(--ouro),transparent);
+}
+
+.header-brand{
+    display:flex;
+    align-items:center;
+    gap:16px;
+}
+
+.header-logo{
+    width:42px;height:42px;
+    display:flex;align-items:center;justify-content:center;
+    border:1.5px solid var(--ouro);
+    border-radius:50%;
+    color:var(--ouro);
+    background:rgba(201,169,110,0.08);
+}
+
+.header-text h1{
+    color:var(--marfim);
+    font-size:20px;
+    font-weight:600;
+    line-height:1.1;
+    margin:0;
+}
+
+.header-text .subtitle{
+    font-family:"Inter",sans-serif;
+    font-size:11px;
+    font-weight:400;
+    color:var(--ouro);
+    letter-spacing:0.24em;
+    text-transform:uppercase;
+    margin-top:2px;
+}
+
+.header-actions{
+    display:flex;
+    gap:12px;
+    align-items:center;
+}
+
+.progress-indicator{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:12px;
+    color:var(--marfim);
+    opacity:0.85;
+}
+
+.progress-bar{
+    width:120px;
+    height:4px;
+    background:rgba(255,255,255,0.15);
+    border-radius:2px;
+    overflow:hidden;
+}
+
+.progress-fill{
+    height:100%;
+    background:var(--ouro);
+    width:6%;
+    transition:width 0.4s ease;
+}
+
+.btn-header{
+    background:transparent;
+    border:1px solid rgba(201,169,110,0.5);
+    color:var(--marfim);
+    padding:8px 16px;
+    font-size:12px;
+    font-family:"Inter",sans-serif;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    cursor:pointer;
+    border-radius:3px;
+    transition:all 0.25s ease;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.btn-header:hover{
+    background:var(--ouro);
+    color:var(--azul-profundo);
+    border-color:var(--ouro);
+}
+
+.btn-header svg{width:14px;height:14px;}
+
+/* ============ NAV LATERAL ============ */
+nav{
+    background:var(--papel);
+    width:300px;
+    height:calc(100vh - 72px);
+    position:fixed;
+    top:72px;
+    left:0;
+    overflow-y:auto;
+    border-right:1px solid var(--linha);
+    padding:24px 0 40px 0;
+    scrollbar-width:thin;
+    scrollbar-color:var(--linha) transparent;
+}
+
+nav::-webkit-scrollbar{width:6px;}
+nav::-webkit-scrollbar-track{background:transparent;}
+nav::-webkit-scrollbar-thumb{background:var(--linha);border-radius:3px;}
+
+.nav-search{
+    padding:0 24px 20px 24px;
+    border-bottom:1px solid var(--linha);
+    margin-bottom:16px;
+    position:relative;
+}
+
+.nav-search input{
+    width:100%;
+    padding:10px 12px 10px 36px;
+    font-size:13px;
+    font-family:"Inter",sans-serif;
+    border:1px solid var(--linha);
+    background:var(--marfim);
+    border-radius:3px;
+    color:var(--tinta);
+    transition:border-color 0.2s;
+}
+
+.nav-search input:focus{
+    outline:none;
+    border-color:var(--azul-medio);
+}
+
+.nav-search .search-icon{
+    position:absolute;
+    left:36px;
+    top:50%;
+    transform:translateY(-50%);
+    margin-top:-10px;
+    color:var(--tinta-suave);
+    pointer-events:none;
+}
+
+.nav-group-title{
+    font-family:"Inter",sans-serif;
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--tinta-suave);
+    padding:16px 24px 8px 24px;
+    opacity:0.7;
+}
+
+.nav-group-title:first-of-type{padding-top:4px;}
+
+nav button{
+    width:100%;
+    padding:10px 24px 10px 24px;
+    border:none;
+    background:none;
+    color:var(--tinta-suave);
+    text-align:left;
+    cursor:pointer;
+    font-size:13.5px;
+    font-family:"Inter",sans-serif;
+    font-weight:400;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    position:relative;
+    transition:all 0.2s ease;
+    border-left:2px solid transparent;
+}
+
+nav button .nav-icon{
+    width:18px;height:18px;
+    flex-shrink:0;
+    color:var(--tinta-suave);
+    opacity:0.7;
+    transition:all 0.2s ease;
+}
+
+nav button .nav-number{
+    font-family:"Cormorant Garamond",serif;
+    font-size:11px;
+    color:var(--ouro-escuro);
+    margin-left:auto;
+    font-weight:500;
+    letter-spacing:0.05em;
+}
+
+nav button:hover{
+    background:var(--marfim-escuro);
+    color:var(--azul-profundo);
+}
+
+nav button:hover .nav-icon{
+    opacity:1;
+    color:var(--azul-medio);
+}
+
+nav button.active{
+    background:linear-gradient(90deg,rgba(201,169,110,0.12),transparent);
+    color:var(--azul-profundo);
+    font-weight:500;
+    border-left-color:var(--ouro);
+}
+
+nav button.active .nav-icon{
+    color:var(--azul-profundo);
+    opacity:1;
+}
+
+nav button.active .nav-number{
+    color:var(--azul-profundo);
+}
+
+nav button.read::after{
+    content:"";
+    position:absolute;
+    right:14px;
+    top:50%;
+    transform:translateY(-50%);
+    width:6px;height:6px;
+    border-radius:50%;
+    background:var(--sucesso);
+    opacity:0.6;
+}
+
+nav button.active.read::after{right:14px;}
+
+/* ============ MAIN ============ */
+main{
+    margin-left:300px;
+    padding:112px 60px 80px 60px;
+    max-width:1100px;
+    min-height:100vh;
+}
+
+section{
+    display:none;
+    animation:fadeIn 0.5s ease;
+}
+
+section.active{display:block;}
+
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(8px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+/* ============ TÍTULOS DE SEÇÃO ============ */
+.section-header{
+    margin-bottom:40px;
+    padding-bottom:24px;
+    border-bottom:1px solid var(--linha);
+    position:relative;
+}
+
+.section-eyebrow{
+    font-family:"Inter",sans-serif;
+    font-size:11px;
+    font-weight:500;
+    letter-spacing:0.24em;
+    text-transform:uppercase;
+    color:var(--ouro-escuro);
+    margin-bottom:10px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.section-eyebrow::before{
+    content:"";
+    width:24px;height:1px;
+    background:var(--ouro);
+}
+
+h2{
+    font-size:40px;
+    line-height:1.1;
+    margin-bottom:12px;
+    font-weight:500;
+}
+
+.section-lead{
+    font-family:"Cormorant Garamond",serif;
+    font-size:19px;
+    line-height:1.5;
+    color:var(--tinta-suave);
+    font-weight:400;
+    font-style:italic;
+    max-width:720px;
+}
+
+h3{
+    font-size:22px;
+    font-weight:600;
+    margin:36px 0 14px 0;
+    color:var(--azul-profundo);
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+h3 .h3-icon{
+    width:20px;height:20px;
+    color:var(--ouro-escuro);
+    flex-shrink:0;
+}
+
+h3::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:var(--linha);
+    margin-left:8px;
+}
+
+p{margin-bottom:14px;color:var(--tinta-suave);}
+
+/* ============ CARDS / CAIXAS ============ */
+.caixa{
+    background:var(--papel);
+    border:1px solid var(--linha);
+    border-left:3px solid var(--azul-medio);
+    padding:20px 24px;
+    margin:16px 0;
+    border-radius:2px;
+    box-shadow:var(--sombra-sutil);
+    position:relative;
+    transition:all 0.25s ease;
+}
+
+.caixa:hover{
+    box-shadow:var(--sombra-media);
+    transform:translateX(2px);
+}
+
+.caixa-label{
+    font-family:"Inter",sans-serif;
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--azul-medio);
+    margin-bottom:8px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.caixa-label svg{width:14px;height:14px;}
+
+.caixa-content{
+    font-family:"Cormorant Garamond",serif;
+    font-size:17px;
+    line-height:1.55;
+    color:var(--tinta);
+    font-style:italic;
+}
+
+.acao{
+    background:linear-gradient(135deg,rgba(45,95,63,0.04),rgba(45,95,63,0.01));
+    border:1px solid rgba(45,95,63,0.15);
+    border-left:3px solid var(--sucesso);
+    padding:20px 24px;
+    margin:16px 0;
+    border-radius:2px;
+    box-shadow:var(--sombra-sutil);
+}
+
+.acao .caixa-label{color:var(--sucesso);}
+
+.acao ul{
+    list-style:none;
+    padding:0;
+    margin:8px 0 0 0;
+}
+
+.acao ul li{
+    padding:6px 0 6px 28px;
+    position:relative;
+    color:var(--tinta);
+    font-size:14.5px;
+    line-height:1.5;
+}
+
+.acao ul li::before{
+    content:"";
+    position:absolute;
+    left:0;top:12px;
+    width:14px;height:14px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232d5f3f' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>");
+    background-size:contain;
+    background-repeat:no-repeat;
+}
+
+.exemplos ul{
+    list-style:none;
+    padding:0;
+    margin:8px 0 0 0;
+}
+
+.exemplos ul li{
+    padding:6px 0 6px 28px;
+    position:relative;
+    color:var(--tinta);
+    font-size:14.5px;
+    line-height:1.5;
+}
+
+.exemplos ul li::before{
+    content:"";
+    position:absolute;
+    left:0;top:12px;
+    width:14px;height:14px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238b5a2b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><line x1='12' y1='9' x2='12' y2='13'/><line x1='12' y1='17' x2='12.01' y2='17'/><path d='M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z'/></svg>");
+    background-size:contain;
+    background-repeat:no-repeat;
+}
+
+.exemplos{
+    background:linear-gradient(135deg,rgba(139,90,43,0.04),rgba(139,90,43,0.01));
+    border:1px solid rgba(139,90,43,0.18);
+    border-left:3px solid var(--alerta);
+    padding:20px 24px;
+    margin:16px 0;
+    border-radius:2px;
+    box-shadow:var(--sombra-sutil);
+}
+
+.exemplos .caixa-label{color:var(--alerta);}
+
+.lgpd{
+    background:var(--papel);
+    border:1px solid var(--linha);
+    border-top:2px solid var(--ouro);
+    padding:14px 20px;
+    margin:28px 0 8px 0;
+    border-radius:2px;
+    font-size:13px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    flex-wrap:wrap;
+}
+
+.lgpd-icon{
+    width:32px;height:32px;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(201,169,110,0.12);
+    border-radius:50%;
+    color:var(--ouro-escuro);
+    flex-shrink:0;
+}
+
+.lgpd-icon svg{width:16px;height:16px;}
+
+.lgpd-content{flex:1;min-width:200px;}
+
+.lgpd-title{
+    font-weight:600;
+    color:var(--azul-profundo);
+    font-size:11px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    margin-bottom:2px;
+}
+
+.lgpd-artigos{color:var(--tinta-suave);font-size:13.5px;}
+
+/* ============ FLIP CARD (ANALOGIA INTERATIVA) ============ */
+.flip-card{
+    perspective:1200px;
+    min-height:180px;
+    margin:16px 0;
+    cursor:pointer;
+}
+
+.flip-card-inner{
+    position:relative;
+    width:100%;
+    min-height:180px;
+    transition:transform 0.7s cubic-bezier(0.4,0.2,0.2,1);
+    transform-style:preserve-3d;
+}
+
+.flip-card.flipped .flip-card-inner{
+    transform:rotateY(180deg);
+}
+
+.flip-face{
+    position:absolute;
+    inset:0;
+    padding:24px 28px;
+    border-radius:2px;
+    backface-visibility:hidden;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    box-shadow:var(--sombra-media);
+}
+
+.flip-front{
+    background:linear-gradient(135deg,var(--azul-profundo),var(--azul-medio));
+    color:var(--marfim);
+    border:1px solid var(--azul-medio);
+}
+
+.flip-front::before{
+    content:"";
+    position:absolute;
+    top:0;left:0;right:0;
+    height:2px;
+    background:linear-gradient(90deg,transparent,var(--ouro),transparent);
+}
+
+.flip-back{
+    background:var(--papel);
+    border:1px solid var(--ouro);
+    transform:rotateY(180deg);
+    color:var(--tinta);
+}
+
+.flip-back::before{
+    content:"";
+    position:absolute;
+    top:0;left:0;right:0;
+    height:2px;
+    background:linear-gradient(90deg,transparent,var(--ouro),transparent);
+}
+
+.flip-face-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.flip-face-eyebrow{
+    font-family:"Inter",sans-serif;
+    font-size:10px;
+    font-weight:500;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    opacity:0.8;
+}
+
+.flip-front .flip-face-eyebrow{color:var(--ouro);}
+.flip-back .flip-face-eyebrow{color:var(--ouro-escuro);}
+
+.flip-face-body{
+    font-family:"Cormorant Garamond",serif;
+    font-size:19px;
+    line-height:1.5;
+    font-style:italic;
+    padding:8px 0;
+}
+
+.flip-hint{
+    font-family:"Inter",sans-serif;
+    font-size:11px;
+    opacity:0.7;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    margin-top:8px;
+}
+
+.flip-hint svg{width:12px;height:12px;}
+
+/* ============ CHECKLIST INTERATIVO ============ */
+.checklist{
+    background:var(--papel);
+    border:1px solid var(--linha);
+    border-radius:2px;
+    padding:20px 24px;
+    margin:20px 0;
+    box-shadow:var(--sombra-sutil);
+}
+
+.checklist-title{
+    font-family:"Inter",sans-serif;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--azul-profundo);
+    margin-bottom:14px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.checklist-title svg{width:16px;height:16px;color:var(--ouro-escuro);}
+
+.checklist-item{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    padding:10px 0;
+    border-bottom:1px dashed var(--linha);
+    cursor:pointer;
+    transition:all 0.2s;
+}
+
+.checklist-item:last-child{border-bottom:none;}
+
+.checklist-item:hover{padding-left:4px;}
+
+.check-box{
+    width:20px;height:20px;
+    border:1.5px solid var(--linha);
+    border-radius:3px;
+    flex-shrink:0;
+    margin-top:2px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:all 0.25s ease;
+    background:var(--marfim);
+}
+
+.check-box svg{
+    width:14px;height:14px;
+    color:var(--marfim);
+    opacity:0;
+    transition:opacity 0.2s;
+}
+
+.checklist-item.checked .check-box{
+    background:var(--sucesso);
+    border-color:var(--sucesso);
+}
+
+.checklist-item.checked .check-box svg{opacity:1;}
+
+.checklist-item.checked .check-text{
+    color:var(--tinta-suave);
+    text-decoration:line-through;
+    text-decoration-color:var(--ouro);
+    text-decoration-thickness:1px;
+}
+
+.check-text{
+    font-size:14.5px;
+    line-height:1.5;
+    color:var(--tinta);
+    transition:all 0.25s ease;
+}
+
+/* ============ QUIZ ============ */
+.quiz{
+    background:linear-gradient(135deg,rgba(11,37,69,0.02),rgba(201,169,110,0.04));
+    border:1px solid var(--linha);
+    border-top:3px solid var(--ouro);
+    border-radius:2px;
+    padding:24px 28px;
+    margin:28px 0;
+    box-shadow:var(--sombra-media);
+}
+
+.quiz-header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:16px;
+}
+
+.quiz-badge{
+    font-family:"Inter",sans-serif;
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--ouro-escuro);
+    padding:4px 10px;
+    border:1px solid var(--ouro);
+    border-radius:2px;
+    background:rgba(201,169,110,0.06);
+}
+
+.quiz-question{
+    font-family:"Cormorant Garamond",serif;
+    font-size:22px;
+    line-height:1.4;
+    color:var(--azul-profundo);
+    font-weight:500;
+    margin-bottom:20px;
+}
+
+.quiz-options{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.quiz-option{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:14px 18px;
+    background:var(--marfim);
+    border:1px solid var(--linha);
+    border-radius:2px;
+    cursor:pointer;
+    transition:all 0.2s ease;
+    font-size:14.5px;
+    color:var(--tinta);
+    text-align:left;
+    font-family:"Inter",sans-serif;
+    width:100%;
+}
+
+.quiz-option:hover{
+    border-color:var(--azul-medio);
+    background:var(--papel);
+    transform:translateX(2px);
+}
+
+.quiz-option .opt-letter{
+    width:28px;height:28px;
+    border-radius:50%;
+    background:var(--papel);
+    border:1px solid var(--linha);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:"Cormorant Garamond",serif;
+    font-weight:600;
+    font-size:14px;
+    color:var(--azul-profundo);
+    flex-shrink:0;
+    transition:all 0.2s;
+}
+
+.quiz-option.correct{
+    background:rgba(45,95,63,0.08);
+    border-color:var(--sucesso);
+    color:var(--sucesso);
+    pointer-events:none;
+}
+
+.quiz-option.correct .opt-letter{
+    background:var(--sucesso);
+    color:var(--marfim);
+    border-color:var(--sucesso);
+}
+
+.quiz-option.wrong{
+    background:rgba(122,46,46,0.06);
+    border-color:var(--perigo);
+    color:var(--perigo);
+    pointer-events:none;
+}
+
+.quiz-option.wrong .opt-letter{
+    background:var(--perigo);
+    color:var(--marfim);
+    border-color:var(--perigo);
+}
+
+.quiz-feedback{
+    margin-top:16px;
+    padding:14px 18px;
+    border-radius:2px;
+    font-size:14px;
+    display:none;
+    animation:fadeIn 0.3s ease;
+}
+
+.quiz-feedback.show{display:block;}
+
+.quiz-feedback.correct{
+    background:rgba(45,95,63,0.08);
+    border-left:3px solid var(--sucesso);
+    color:var(--sucesso);
+}
+
+.quiz-feedback.wrong{
+    background:rgba(122,46,46,0.06);
+    border-left:3px solid var(--perigo);
+    color:var(--perigo);
+}
+
+.quiz-feedback strong{font-weight:600;}
+
+/* ============ BARRA DE NAVEGAÇÃO INFERIOR ============ */
+.section-footer{
+    margin-top:56px;
+    padding-top:24px;
+    border-top:1px solid var(--linha);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+}
+
+.btn-nav{
+    background:transparent;
+    border:1px solid var(--linha);
+    color:var(--tinta-suave);
+    padding:12px 20px;
+    font-size:13px;
+    font-family:"Inter",sans-serif;
+    cursor:pointer;
+    border-radius:2px;
+    transition:all 0.2s;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.btn-nav:hover:not(:disabled){
+    border-color:var(--azul-medio);
+    background:var(--papel);
+    color:var(--azul-profundo);
+}
+
+.btn-nav:disabled{opacity:0.35;cursor:not-allowed;}
+
+.btn-nav svg{width:14px;height:14px;}
+
+.btn-nav .btn-nav-label{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    line-height:1.2;
+}
+
+.btn-nav .btn-nav-label small{
+    font-size:10px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    opacity:0.7;
+}
+
+.btn-nav.next .btn-nav-label{align-items:flex-end;}
+
+.btn-nav .btn-nav-label span{
+    font-family:"Cormorant Garamond",serif;
+    font-size:15px;
+    font-weight:500;
+}
+
+.btn-mark-read{
+    background:var(--azul-profundo);
+    border:none;
+    color:var(--marfim);
+    padding:12px 22px;
+    font-size:12px;
+    font-weight:500;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    cursor:pointer;
+    border-radius:2px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    transition:all 0.2s;
+}
+
+.btn-mark-read:hover{
+    background:var(--azul-medio);
+    transform:translateY(-1px);
+    box-shadow:var(--sombra-media);
+}
+
+.btn-mark-read.done{
+    background:var(--sucesso);
+}
+
+.btn-mark-read svg{width:14px;height:14px;}
+
+/* ============ SUMÁRIO VISUAL ============ */
+.intro-hero{
+    background:linear-gradient(135deg,var(--azul-profundo) 0%,var(--azul-medio) 70%,var(--azul-claro) 100%);
+    color:var(--marfim);
+    padding:48px 44px;
+    border-radius:3px;
+    margin-bottom:36px;
+    position:relative;
+    overflow:hidden;
+    box-shadow:var(--sombra-forte);
+}
+
+.intro-hero::before{
+    content:"";
+    position:absolute;
+    top:-40%;right:-10%;
+    width:480px;height:480px;
+    background:radial-gradient(circle,rgba(201,169,110,0.12),transparent 70%);
+    pointer-events:none;
+}
+
+.intro-hero::after{
+    content:"";
+    position:absolute;
+    bottom:0;left:0;right:0;
+    height:2px;
+    background:linear-gradient(90deg,transparent,var(--ouro),transparent);
+}
+
+.intro-hero-eyebrow{
+    font-family:"Inter",sans-serif;
+    font-size:11px;
+    font-weight:500;
+    letter-spacing:0.28em;
+    text-transform:uppercase;
+    color:var(--ouro);
+    margin-bottom:14px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.intro-hero-eyebrow::before{
+    content:"";
+    width:32px;height:1px;
+    background:var(--ouro);
+}
+
+.intro-hero h2{
+    color:var(--marfim);
+    font-size:46px;
+    line-height:1.05;
+    margin-bottom:18px;
+    max-width:720px;
+    font-weight:500;
+}
+
+.intro-hero-lead{
+    font-family:"Cormorant Garamond",serif;
+    font-size:20px;
+    line-height:1.5;
+    max-width:640px;
+    color:rgba(247,243,236,0.88);
+    font-style:italic;
+    position:relative;
+}
+
+.intro-stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:0;
+    margin-top:36px;
+    padding-top:28px;
+    border-top:1px solid rgba(201,169,110,0.25);
+    position:relative;
+}
+
+.stat-item{
+    padding:0 20px;
+    border-right:1px solid rgba(201,169,110,0.18);
+}
+
+.stat-item:last-child{border-right:none;}
+.stat-item:first-child{padding-left:0;}
+
+.stat-number{
+    font-family:"Cormorant Garamond",serif;
+    font-size:36px;
+    font-weight:500;
+    color:var(--ouro);
+    line-height:1;
+    margin-bottom:4px;
+}
+
+.stat-label{
+    font-family:"Inter",sans-serif;
+    font-size:11px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:rgba(247,243,236,0.7);
+}
+
+/* ============ SUMÁRIO DE SEÇÕES (CARTÃO DE ÍNDICE) ============ */
+.indice-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+    margin-top:32px;
+}
+
+.indice-card{
+    background:var(--papel);
+    border:1px solid var(--linha);
+    padding:20px 22px;
+    border-radius:2px;
+    cursor:pointer;
+    transition:all 0.25s ease;
+    display:flex;
+    align-items:flex-start;
+    gap:16px;
+    text-align:left;
+    font-family:inherit;
+    color:inherit;
+    width:100%;
+}
+
+.indice-card:hover{
+    border-color:var(--ouro);
+    transform:translateY(-2px);
+    box-shadow:var(--sombra-media);
+    background:var(--marfim);
+}
+
+.indice-card:hover .indice-num{
+    color:var(--ouro-escuro);
+    border-color:var(--ouro);
+}
+
+.indice-num{
+    font-family:"Cormorant Garamond",serif;
+    font-size:22px;
+    font-weight:500;
+    color:var(--azul-profundo);
+    border:1px solid var(--linha);
+    width:40px;height:40px;
+    display:flex;align-items:center;justify-content:center;
+    border-radius:50%;
+    flex-shrink:0;
+    transition:all 0.25s;
+    background:var(--marfim);
+}
+
+.indice-body h4{
+    font-size:17px;
+    font-weight:600;
+    color:var(--azul-profundo);
+    margin-bottom:4px;
+}
+
+.indice-body p{
+    font-size:13px;
+    color:var(--tinta-suave);
+    margin:0;
+    line-height:1.45;
+}
+
+/* ============ TOOLTIP ============ */
+.tooltip{
+    display:inline-block;
+    border-bottom:1px dashed var(--ouro-escuro);
+    color:var(--azul-medio);
+    cursor:help;
+    position:relative;
+    font-weight:500;
+}
+
+.tooltip:hover .tooltip-text{
+    opacity:1;
+    visibility:visible;
+    transform:translateX(-50%) translateY(0);
+}
+
+.tooltip-text{
+    position:absolute;
+    bottom:calc(100% + 10px);
+    left:50%;
+    transform:translateX(-50%) translateY(4px);
+    background:var(--azul-profundo);
+    color:var(--marfim);
+    padding:10px 14px;
+    border-radius:2px;
+    font-size:12.5px;
+    font-weight:400;
+    line-height:1.45;
+    width:260px;
+    opacity:0;
+    visibility:hidden;
+    transition:all 0.25s ease;
+    z-index:50;
+    box-shadow:var(--sombra-forte);
+    font-style:normal;
+}
+
+.tooltip-text::after{
+    content:"";
+    position:absolute;
+    top:100%;
+    left:50%;
+    transform:translateX(-50%);
+    border:6px solid transparent;
+    border-top-color:var(--azul-profundo);
+}
+
+/* ============ FORMULÁRIO ============ */
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px 24px;
+    margin:28px 0;
+}
+
+.form-field{display:flex;flex-direction:column;gap:6px;}
+.form-field.full{grid-column:1/-1;}
+
+.form-field label{
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:var(--azul-profundo);
+}
+
+.form-field label .req{color:var(--perigo);}
+
+.form-field input{
+    padding:12px 14px;
+    font-size:14px;
+    font-family:"Inter",sans-serif;
+    border:1px solid var(--linha);
+    background:var(--marfim);
+    border-radius:2px;
+    color:var(--tinta);
+    transition:all 0.2s;
+}
+
+.form-field input:focus{
+    outline:none;
+    border-color:var(--azul-medio);
+    box-shadow:0 0 0 3px rgba(19,49,92,0.08);
+}
+
+.form-field input.error{
+    border-color:var(--perigo);
+    background:rgba(122,46,46,0.02);
+}
+
+.btn-primary{
+    padding:14px 28px;
+    background:var(--azul-profundo);
+    color:var(--marfim);
+    border:none;
+    font-size:13px;
+    font-weight:500;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    cursor:pointer;
+    border-radius:2px;
+    transition:all 0.25s;
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    box-shadow:var(--sombra-media);
+    font-family:"Inter",sans-serif;
+}
+
+.btn-primary:hover{
+    background:var(--azul-medio);
+    transform:translateY(-1px);
+    box-shadow:var(--sombra-forte);
+}
+
+.btn-primary svg{width:16px;height:16px;}
+
+.signature-preview{
+    background:var(--papel);
+    border:1px dashed var(--ouro);
+    padding:22px 24px;
+    margin:20px 0;
+    border-radius:2px;
+    font-family:"Cormorant Garamond",serif;
+    font-size:16px;
+    color:var(--tinta-suave);
+    font-style:italic;
+    text-align:center;
+    line-height:1.6;
+}
+
+.signature-preview strong{
+    font-weight:600;
+    color:var(--azul-profundo);
+    font-style:normal;
+}
+
+/* ============ RESPONSIVO ============ */
+@media (max-width:900px){
+    nav{
+        transform:translateX(-100%);
+        width:280px;
+        transition:transform 0.3s ease;
+        z-index:90;
+    }
+    nav.open{transform:translateX(0);box-shadow:var(--sombra-forte);}
+    main{margin-left:0;padding:100px 24px 40px 24px;}
+    .intro-hero{padding:32px 24px;}
+    .intro-hero h2{font-size:32px;}
+    .intro-stats{grid-template-columns:repeat(2,1fr);gap:20px 0;}
+    .stat-item{border-right:none;padding:0;}
+    .indice-grid{grid-template-columns:1fr;}
+    .form-grid{grid-template-columns:1fr;}
+    h2{font-size:30px;}
+    .btn-mobile-menu{display:flex !important;}
+    .progress-indicator{display:none;}
+    .header-text h1{font-size:16px;}
+    header{padding:0 20px;}
+}
+
+.btn-mobile-menu{
+    display:none;
+    background:transparent;
+    border:1px solid rgba(201,169,110,0.5);
+    color:var(--marfim);
+    width:38px;height:38px;
+    border-radius:3px;
+    cursor:pointer;
+    align-items:center;justify-content:center;
+}
+
+.btn-mobile-menu svg{width:18px;height:18px;}
+
+/* Impressão da tela principal, por cortesia */
+@media print{
+    nav,header,.section-footer,.btn-header{display:none;}
+    main{margin-left:0;padding:20px;}
+    section{display:block !important;page-break-after:always;}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header>
+    <div class="header-brand">
+        <button class="btn-mobile-menu" onclick="toggleMenu()" aria-label="Abrir menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div class="header-logo">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M12 22V7"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        </div>
+        <div class="header-text">
+            <h1>Macaé Navegação</h1>
+            <div class="subtitle">Política de Segurança da Informação</div>
+        </div>
+    </div>
+    <div class="header-actions">
+        <div class="progress-indicator" title="Seções lidas">
+            <span id="progressText">0 / 16</span>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        </div>
+        <button class="btn-header" onclick="abrir('assinatura')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            Ciência e Aceite
+        </button>
+    </div>
+</header>
+
+<!-- ============ NAV LATERAL ============ -->
+<nav id="navMenu">
+    <div class="nav-search">
+        <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="navSearch" placeholder="Buscar na política..." oninput="filtrarNav(this.value)">
+    </div>
+
+    <div class="nav-group-title">Fundamentos</div>
+    <button onclick="abrir('intro',this)" class="active" data-secao="intro">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6v16l7-3 8 3 7-3V3l-7 3-8-3-7 3z"/><line x1="8" y1="3" x2="8" y2="19"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+        <span>Carta Náutica</span>
+        <span class="nav-number">I</span>
+    </button>
+    <button onclick="abrir('objetivo',this)" data-secao="objetivo">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+        <span>Porto Seguro</span>
+        <span class="nav-number">II</span>
+    </button>
+    <button onclick="abrir('principios',this)" data-secao="principios">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6z"/><path d="M3 15a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-3z"/><line x1="7" y1="7.5" x2="7" y2="7.5"/><line x1="7" y1="16.5" x2="7" y2="16.5"/></svg>
+        <span>Princípios</span>
+        <span class="nav-number">III</span>
+    </button>
+
+    <div class="nav-group-title">Organização</div>
+    <button onclick="abrir('responsabilidades',this)" data-secao="responsabilidades">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span>Tripulação</span>
+        <span class="nav-number">IV</span>
+    </button>
+    <button onclick="abrir('ativos',this)" data-secao="ativos">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        <span>Ativos</span>
+        <span class="nav-number">V</span>
+    </button>
+    <button onclick="abrir('acesso',this)" data-secao="acesso">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span>Controle de Acesso</span>
+        <span class="nav-number">VI</span>
+    </button>
+    <button onclick="abrir('classificacao',this)" data-secao="classificacao">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>Classificação</span>
+        <span class="nav-number">VII</span>
+    </button>
+    <button onclick="abrir('uso',this)" data-secao="uso">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+        <span>Uso Aceitável</span>
+        <span class="nav-number">VIII</span>
+    </button>
+
+    <div class="nav-group-title">Ameaças &amp; Resposta</div>
+    <button onclick="abrir('bioinvasores',this)" data-secao="bioinvasores">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M4.93 19.07l1.41-1.41"/><path d="M17.66 6.34l1.41-1.41"/></svg>
+        <span>Bioinvasores Digitais</span>
+        <span class="nav-number">IX</span>
+    </button>
+    <button onclick="abrir('incidentes',this)" data-secao="incidentes">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span>Incidentes</span>
+        <span class="nav-number">X</span>
+    </button>
+    <button onclick="abrir('backup',this)" data-secao="backup">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>
+        <span>Backup</span>
+        <span class="nav-number">XI</span>
+    </button>
+    <button onclick="abrir('embarcado',this)" data-secao="embarcado">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20a2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 2-1 2.4 2.4 0 0 1 2 1 2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 2-1 2.4 2.4 0 0 1 2 1 2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1"/><path d="M19.38 20A11.6 11.6 0 0 0 21 14l-9-4-9 4c0 2.9.94 5.34 2.81 7.76"/><path d="M19 13V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v6"/><path d="M12 10V2"/></svg>
+        <span>Uso a Bordo</span>
+        <span class="nav-number">XII</span>
+    </button>
+
+    <div class="nav-group-title">Conformidade</div>
+    <button onclick="abrir('lgpd',this)" data-secao="lgpd">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M9 14l2 2 4-4"/></svg>
+        <span>LGPD</span>
+        <span class="nav-number">XIII</span>
+    </button>
+    <button onclick="abrir('treinamento',this)" data-secao="treinamento">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        <span>Conscientização</span>
+        <span class="nav-number">XIV</span>
+    </button>
+    <button onclick="abrir('revisao',this)" data-secao="revisao">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        <span>Revisão e Vigência</span>
+        <span class="nav-number">XV</span>
+    </button>
+    <button onclick="abrir('assinatura',this)" data-secao="assinatura">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        <span>Ciência e Aceite</span>
+        <span class="nav-number">XVI</span>
+    </button>
+</nav>
+
+<main>
+
+<!-- =========== I. CARTA NÁUTICA =========== -->
+<section id="intro" class="active">
+    <div class="intro-hero">
+        <div class="intro-hero-eyebrow">Capítulo I · Fundamentos</div>
+        <h2>A Carta Náutica da sua Segurança Digital</h2>
+        <p class="intro-hero-lead">
+            Em alto-mar, nenhuma embarcação parte sem uma carta náutica. Neste documento
+            está a sua — os limites, as rotas seguras e os comportamentos que mantêm
+            a operação da Macaé Navegação protegida em todos os portos digitais.
+        </p>
+        <div class="intro-stats">
+            <div class="stat-item"><div class="stat-number">16</div><div class="stat-label">Capítulos</div></div>
+            <div class="stat-item"><div class="stat-number">3</div><div class="stat-label">Pilares CID</div></div>
+            <div class="stat-item"><div class="stat-number">LGPD</div><div class="stat-label">Conformidade</div></div>
+            <div class="stat-item"><div class="stat-number">100%</div><div class="stat-label">Obrigatório</div></div>
+        </div>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>Por onde navegar neste documento</h3>
+    <p>Clique em qualquer ponto abaixo para atracar diretamente no capítulo desejado. Você pode também buscar por palavra-chave no menu lateral.</p>
+
+    <div class="indice-grid">
+        <button class="indice-card" onclick="abrirPorId('objetivo')"><div class="indice-num">II</div><div class="indice-body"><h4>Porto Seguro</h4><p>Por que a PSI existe e o que ela protege.</p></div></button>
+        <button class="indice-card" onclick="abrirPorId('principios')"><div class="indice-num">III</div><div class="indice-body"><h4>Princípios (CID)</h4><p>Confidencialidade, integridade e disponibilidade.</p></div></button>
+        <button class="indice-card" onclick="abrirPorId('responsabilidades')"><div class="indice-num">IV</div><div class="indice-body"><h4>Tripulação</h4><p>Quem é responsável por quê no dia a dia.</p></div></button>
+        <button class="indice-card" onclick="abrirPorId('bioinvasores')"><div class="indice-num">IX</div><div class="indice-body"><h4>Bioinvasores Digitais</h4><p>Vírus, phishing e ameaças modernas.</p></div></button>
+        <button class="indice-card" onclick="abrirPorId('incidentes')"><div class="indice-num">X</div><div class="indice-body"><h4>Incidentes</h4><p>Como agir em situação crítica.</p></div></button>
+        <button class="indice-card" onclick="abrirPorId('assinatura')"><div class="indice-num">XVI</div><div class="indice-body"><h4>Ciência e Aceite</h4><p>Formalize sua ciência e gere o termo em PDF.</p></div></button>
+    </div>
+
+    <div class="section-footer">
+        <div></div>
+        <button class="btn-mark-read" onclick="marcarLido('intro',this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Marcar como lido</span>
+        </button>
+        <button class="btn-nav next" onclick="abrirPorId('objetivo')">
+            <div class="btn-nav-label"><small>Próximo · II</small><span>Porto Seguro</span></div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+    </div>
+</section>
+
+<!-- =========== II. PORTO SEGURO =========== -->
+<section id="objetivo">
+    <div class="section-header">
+        <div class="section-eyebrow">Capítulo II</div>
+        <h2>Porto Seguro</h2>
+        <p class="section-lead">O objetivo da PSI é garantir que as informações da empresa sejam utilizadas de forma segura, íntegra e disponível — protegendo a operação, as pessoas e a reputação da Macaé Navegação.</p>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20a2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 2-1 2.4 2.4 0 0 1 2 1 2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 2-1 2.4 2.4 0 0 1 2 1 2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1"/><path d="M19 13V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v6"/></svg>Analogia Naval</h3>
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+            <div class="flip-face flip-front">
+                <div class="flip-face-header"><span class="flip-face-eyebrow">Toque para refletir</span></div>
+                <div class="flip-face-body">"O porto seguro não evita tempestades — ele oferece abrigo, controle e organização quando as condições se tornam adversas."</div>
+                <div class="flip-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>Ver tradução corporativa</div>
+            </div>
+            <div class="flip-face flip-back">
+                <div class="flip-face-header"><span class="flip-face-eyebrow">Tradução corporativa</span></div>
+                <div class="flip-face-body">Incidentes vão acontecer. A PSI não promete um oceano calmo — ela garante que, quando o vento mudar, teremos processos, registros e pessoas preparadas para proteger dados, contratos e reputação.</div>
+                <div class="flip-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>Voltar</div>
+            </div>
+        </div>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Situações de risco reais</h3>
+    <div class="exemplos">
+        <div class="caixa-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Fique atento</div>
+        <ul>
+            <li>E-mail com dados sensíveis enviado ao destinatário errado.</li>
+            <li>Documentos desatualizados usados em tomada de decisão operacional.</li>
+            <li>Extravio de notebook ou celular corporativo em porto ou deslocamento.</li>
+        </ul>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Ações esperadas</h3>
+    <div class="acao">
+        <div class="caixa-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Checklist · marque conforme pratica</div>
+        <div class="checklist" style="box-shadow:none;border:none;padding:0;background:transparent;">
+            <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div class="check-text">Confiro o destinatário antes de enviar qualquer e-mail com dados.</div></div>
+            <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div class="check-text">Verifico se estou usando a versão vigente do documento antes de agir.</div></div>
+            <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div class="check-text">Protejo fisicamente meus equipamentos em trânsito e a bordo.</div></div>
+        </div>
+    </div>
+
+    <div class="lgpd">
+        <div class="lgpd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="lgpd-content"><div class="lgpd-title">Base legal · LGPD</div><div class="lgpd-artigos">Art. 6º, incisos I, V e VII — princípios de finalidade, necessidade e segurança.</div></div>
+    </div>
+
+    <div class="section-footer">
+        <button class="btn-nav prev" onclick="abrirPorId('intro')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            <div class="btn-nav-label"><small>Anterior · I</small><span>Carta Náutica</span></div>
+        </button>
+        <button class="btn-mark-read" onclick="marcarLido('objetivo',this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Marcar como lido</span>
+        </button>
+        <button class="btn-nav next" onclick="abrirPorId('principios')">
+            <div class="btn-nav-label"><small>Próximo · III</small><span>Princípios</span></div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+    </div>
+</section>
+
+<!-- =========== III. PRINCÍPIOS =========== -->
+<section id="principios">
+    <div class="section-header">
+        <div class="section-eyebrow">Capítulo III · Tríade CID</div>
+        <h2>Princípios da Segurança da Informação</h2>
+        <p class="section-lead">Três pilares sustentam toda a navegação segura. Passe o mouse sobre os termos técnicos para ver sua definição prática.</p>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Confidencialidade</h3>
+    <div class="caixa">
+        <div class="caixa-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1l9 4v6c0 5.55-3.84 10.74-9 12-5.16-1.26-9-6.45-9-12V5l9-4z"/></svg>Quem pode ver</div>
+        <div class="caixa-content">A informação deve ser acessada apenas por quem realmente precisa — como as <span class="tooltip">áreas restritas<span class="tooltip-text">Espaços do navio onde só tripulantes autorizados podem entrar (ex.: casa de máquinas, ponte de comando).</span></span> de uma embarcação.</div>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Integridade</h3>
+    <div class="caixa">
+        <div class="caixa-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Quem pode alterar</div>
+        <div class="caixa-content">Dados não podem ser modificados sem autorização — assim como ninguém altera o <span class="tooltip">plano de navegação<span class="tooltip-text">Rota oficial definida pelo comandante; qualquer desvio exige registro e autorização.</span></span> sem comando formal.</div>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Disponibilidade</h3>
+    <div class="caixa">
+        <div class="caixa-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Quando é preciso</div>
+        <div class="caixa-content">A informação deve estar acessível quando necessária — como os <span class="tooltip">equipamentos de salvatagem<span class="tooltip-text">Coletes, botes e boias — devem estar sempre prontos, em local conhecido, sem obstruções.</span></span> em situação de emergência.</div>
+    </div>
+
+    <!-- Quiz interativo -->
+    <div class="quiz">
+        <div class="quiz-header"><div class="quiz-badge">Teste rápido</div></div>
+        <div class="quiz-question">Um colega pede sua senha "só hoje, para adiantar um pedido urgente". Qual princípio CID é quebrado se você aceitar?</div>
+        <div class="quiz-options">
+            <button class="quiz-option" onclick="respQuiz(this,false,'principios-q1')"><span class="opt-letter">A</span><span>Integridade — porque os dados podem ser alterados.</span></button>
+            <button class="quiz-option" onclick="respQuiz(this,true,'principios-q1')"><span class="opt-letter">B</span><span>Confidencialidade — acesso é pessoal e intransferível.</span></button>
+            <button class="quiz-option" onclick="respQuiz(this,false,'principios-q1')"><span class="opt-letter">C</span><span>Disponibilidade — o sistema ficaria fora do ar.</span></button>
+        </div>
+        <div class="quiz-feedback" id="fb-principios-q1"></div>
+    </div>
+
+    <div class="lgpd">
+        <div class="lgpd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="lgpd-content"><div class="lgpd-title">Base legal · LGPD</div><div class="lgpd-artigos">Art. 6º, incisos I, VII e X — finalidade, segurança e responsabilização.</div></div>
+    </div>
+
+    <div class="section-footer">
+        <button class="btn-nav prev" onclick="abrirPorId('objetivo')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            <div class="btn-nav-label"><small>Anterior · II</small><span>Porto Seguro</span></div>
+        </button>
+        <button class="btn-mark-read" onclick="marcarLido('principios',this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Marcar como lido</span>
+        </button>
+        <button class="btn-nav next" onclick="abrirPorId('responsabilidades')">
+            <div class="btn-nav-label"><small>Próximo · IV</small><span>Tripulação</span></div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+    </div>
+</section>
+
+<!-- =========== IV. TRIPULAÇÃO =========== -->
+<section id="responsabilidades">
+    <div class="section-header">
+        <div class="section-eyebrow">Capítulo IV · Organização</div>
+        <h2>Tripulação &amp; Responsabilidades</h2>
+        <p class="section-lead">Em uma embarcação, cada função importa — e a segurança digital não é diferente. Toda pessoa na Macaé Navegação compõe a tripulação digital.</p>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Analogia Naval</h3>
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+            <div class="flip-face flip-front">
+                <div class="flip-face-header"><span class="flip-face-eyebrow">Toque para refletir</span></div>
+                <div class="flip-face-body">"Em uma embarcação, não existe 'problema pequeno'. Um descuido individual pode comprometer a segurança de todos a bordo."</div>
+                <div class="flip-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>Ver tradução corporativa</div>
+            </div>
+            <div class="flip-face flip-back">
+                <div class="flip-face-header"><span class="flip-face-eyebrow">Tradução corporativa</span></div>
+                <div class="flip-face-body">Um e-mail clicado por engano, uma senha reaproveitada ou um aviso de segurança ignorado podem iniciar uma cadeia de incidentes. Responsabilidade é compartilhada — e começa em cada ação individual.</div>
+                <div class="flip-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>Voltar</div>
+            </div>
+        </div>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/></svg>Comportamentos de risco</h3>
+    <div class="exemplos">
+        <div class="caixa-label">Fique atento</div>
+        <ul>
+            <li>Ignorar alertas de segurança do sistema ou da TI.</li>
+            <li>Deixar de comunicar comportamentos suspeitos observados.</li>
+            <li>Compartilhar acessos para "facilitar o trabalho" do colega.</li>
+        </ul>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Ações esperadas</h3>
+    <div class="acao">
+        <div class="caixa-label">Adote como prática</div>
+        <ul>
+            <li>Reporte incidentes imediatamente ao canal oficial de TI.</li>
+            <li>Siga os procedimentos estabelecidos, mesmo quando houver pressão por velocidade.</li>
+            <li>Proteja as informações sob sua responsabilidade com o mesmo rigor de documentos físicos.</li>
+        </ul>
+    </div>
+
+    <div class="lgpd">
+        <div class="lgpd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="lgpd-content"><div class="lgpd-title">Base legal · LGPD</div><div class="lgpd-artigos">Art. 37 (registro) · Art. 46 (medidas de segurança).</div></div>
+    </div>
+
+    <div class="section-footer">
+        <button class="btn-nav prev" onclick="abrirPorId('principios')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg><div class="btn-nav-label"><small>Anterior · III</small><span>Princípios</span></div></button>
+        <button class="btn-mark-read" onclick="marcarLido('responsabilidades',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Marcar como lido</span></button>
+        <button class="btn-nav next" onclick="abrirPorId('ativos')"><div class="btn-nav-label"><small>Próximo · V</small><span>Ativos</span></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+    </div>
+</section>
+
+<!-- =========== V. ATIVOS =========== -->
+<section id="ativos">
+    <div class="section-header">
+        <div class="section-eyebrow">Capítulo V · Organização</div>
+        <h2>Ativos da Informação</h2>
+        <p class="section-lead">Ativos são todos os recursos que armazenam, processam ou transmitem dados da empresa — do notebook ao sistema de escala.</p>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>Analogia Naval</h3>
+    <div class="caixa">
+        <div class="caixa-label">Reflexão</div>
+        <div class="caixa-content">Ativos de informação são como embarcações de apoio: se um falhar, toda a operação pode ser afetada. Tratar bem cada equipamento é tratar bem da frota inteira.</div>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>O que são ativos na prática</h3>
+    <div class="exemplos">
+        <div class="caixa-label">Inventário típico</div>
+        <ul>
+            <li>Computadores, notebooks e periféricos corporativos.</li>
+            <li>Celulares e tablets fornecidos pela empresa.</li>
+            <li>Sistemas de escala, manutenção, faturamento e planilhas operacionais.</li>
+        </ul>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Ações esperadas</h3>
+    <div class="acao">
+        <div class="caixa-label">Adote como prática</div>
+        <ul>
+            <li>Zele pelos equipamentos como se fossem seus — mas com a responsabilidade adicional de serem da empresa.</li>
+            <li>Não empreste dispositivos corporativos, nem para familiares em emergência.</li>
+            <li>Comunique perdas, furtos ou danos imediatamente à TI, mesmo que o dano pareça pequeno.</li>
+        </ul>
+    </div>
+
+    <div class="lgpd">
+        <div class="lgpd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="lgpd-content"><div class="lgpd-title">Base legal · LGPD</div><div class="lgpd-artigos">Art. 5º, inciso X · Art. 46 — operação e medidas de segurança.</div></div>
+    </div>
+
+    <div class="section-footer">
+        <button class="btn-nav prev" onclick="abrirPorId('responsabilidades')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg><div class="btn-nav-label"><small>Anterior · IV</small><span>Tripulação</span></div></button>
+        <button class="btn-mark-read" onclick="marcarLido('ativos',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Marcar como lido</span></button>
+        <button class="btn-nav next" onclick="abrirPorId('acesso')"><div class="btn-nav-label"><small>Próximo · VI</small><span>Controle de Acesso</span></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+    </div>
+</section>
+
+<!-- =========== VI. CONTROLE DE ACESSO =========== -->
+<section id="acesso">
+    <div class="section-header">
+        <div class="section-eyebrow">Capítulo VI · Organização</div>
+        <h2>Controle de Acesso</h2>
+        <p class="section-lead">Cada colaborador deve acessar apenas as informações necessárias à sua função — princípio do <span class="tooltip">menor privilégio<span class="tooltip-text">Dar à pessoa exatamente o acesso necessário para executar sua função, nem mais nem menos.</span></span>.</p>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Analogia Naval</h3>
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+            <div class="flip-face flip-front">
+                <div class="flip-face-header"><span class="flip-face-eyebrow">Toque para refletir</span></div>
+                <div class="flip-face-body">"Assim como nem todos acessam a casa de máquinas, nem todos acessam todas as informações. A chave certa, para a porta certa, nas mãos certas."</div>
+                <div class="flip-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>Ver tradução corporativa</div>
+            </div>
+            <div class="flip-face flip-back">
+                <div class="flip-face-header"><span class="flip-face-eyebrow">Tradução corporativa</span></div>
+                <div class="flip-face-body">Senhas e credenciais são pessoais. Cada acesso fica registrado em seu nome — e toda ação executada com sua credencial será considerada sua responsabilidade, mesmo que feita por outra pessoa.</div>
+                <div class="flip-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>Voltar</div>
+            </div>
+        </div>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/></svg>Situações a evitar</h3>
+    <div class="exemplos">
+        <div class="caixa-label">Fique atento</div>
+        <ul>
+            <li>Usar senha de terceiros "só para resolver mais rápido".</li>
+            <li>Deixar o computador desbloqueado em local de circulação.</li>
+            <li>Solicitar ou manter acessos que não são necessários à sua função atual.</li>
+        </ul>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Ações esperadas</h3>
+    <div class="acao">
+        <div class="caixa-label">Boas práticas de credencial</div>
+        <ul>
+            <li>Nunca compartilhe sua senha — nem com chefes, TI ou colegas.</li>
+            <li>Bloqueie a tela ao se ausentar (Windows: tecla ⊞ + L).</li>
+            <li>Revise periodicamente seus acessos e solicite cancelamento dos desnecessários.</li>
+        </ul>
+    </div>
+
+    <div class="lgpd">
+        <div class="lgpd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="lgpd-content"><div class="lgpd-title">Base legal · LGPD</div><div class="lgpd-artigos">Art. 46 · Art. 49 — medidas técnicas e padrões mínimos de segurança.</div></div>
+    </div>
+
+    <div class="section-footer">
+        <button class="btn-nav prev" onclick="abrirPorId('ativos')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg><div class="btn-nav-label"><small>Anterior · V</small><span>Ativos</span></div></button>
+        <button class="btn-mark-read" onclick="marcarLido('acesso',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Marcar como lido</span></button>
+        <button class="btn-nav next" onclick="abrirPorId('classificacao')"><div class="btn-nav-label"><small>Próximo · VII</small><span>Classificação</span></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+    </div>
+</section>
+
+<!-- =========== VII. CLASSIFICAÇÃO =========== -->
+<section id="classificacao">
+    <div class="section-header">
+        <div class="section-eyebrow">Capítulo VII · Organização</div>
+        <h2>Classificação da Informação</h2>
+        <p class="section-lead">As informações devem ser classificadas conforme seu nível de sensibilidade — assim sabemos o cuidado exigido no uso e no compartilhamento.</p>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>Analogia Naval</h3>
+    <div class="caixa">
+        <div class="caixa-label">Reflexão</div>
+        <div class="caixa-content">Cargas perigosas exigem sinalização especial a bordo. Informações sensíveis exigem proteção adicional na rede — o rótulo certo salva a operação.</div>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Exemplos de dados sensíveis</h3>
+    <div class="exemplos">
+        <div class="caixa-label">Atenção extra</div>
+        <ul>
+            <li>Dados pessoais da tripulação (CPF, endereço, saúde).</li>
+            <li>Informações contratuais com clientes e fornecedores.</li>
+            <li>Relatórios operacionais estratégicos e planilhas de escala.</li>
+        </ul>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Ações esperadas</h3>
+    <div class="acao">
+        <div class="caixa-label">Adote como prática</div>
+        <ul>
+            <li>Compartilhe informações apenas com quem efetivamente precisa delas.</li>
+            <li>Utilize sempre os canais oficiais (e-mail corporativo, sistemas autorizados).</li>
+            <li>Evite prints, fotos ou downloads desnecessários de dados sensíveis.</li>
+        </ul>
+    </div>
+
+    <div class="lgpd">
+        <div class="lgpd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="lgpd-content"><div class="lgpd-title">Base legal · LGPD</div><div class="lgpd-artigos">Art. 6º · Art. 46 — princípios e medidas de segurança no tratamento.</div></div>
+    </div>
+
+    <div class="section-footer">
+        <button class="btn-nav prev" onclick="abrirPorId('acesso')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg><div class="btn-nav-label"><small>Anterior · VI</small><span>Controle de Acesso</span></div></button>
+        <button class="btn-mark-read" onclick="marcarLido('classificacao',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Marcar como lido</span></button>
+        <button class="btn-nav next" onclick="abrirPorId('uso')"><div class="btn-nav-label"><small>Próximo · VIII</small><span>Uso Aceitável</span></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+    </div>
+</section>
+
+<!-- =========== VIII. USO ACEITÁVEL =========== -->
+<section id="uso">
+    <div class="section-header">
+        <div class="section-eyebrow">Capítulo VIII · Organização</div>
+        <h2>Uso Aceitável dos Recursos</h2>
+        <p class="section-lead">Os recursos tecnológicos da empresa são destinados exclusivamente a finalidades profissionais. A régua é simples: se não ajuda no trabalho, não deveria estar ali.</p>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>Analogia Naval</h3>
+    <div class="caixa">
+        <div class="caixa-label">Reflexão</div>
+        <div class="caixa-content">Usar sistemas corporativos para fins pessoais é como usar equipamento de bordo fora de operação — desgasta, gera risco e compromete quem realmente precisa usar.</div>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Ações esperadas</h3>
+    <div class="acao">
+        <div class="caixa-label">Regras de uso</div>
+        <ul>
+            <li>Não instale softwares sem autorização prévia da TI.</li>
+            <li>Não acesse sites inseguros, de jogos, apostas ou conteúdo inadequado.</li>
+            <li>Não conecte pen drives, HDs ou mídias de origem desconhecida.</li>
+        </ul>
+    </div>
+
+    <div class="quiz">
+        <div class="quiz-header"><div class="quiz-badge">Teste rápido</div></div>
+        <div class="quiz-question">Um fornecedor envia um pen drive com "planilha urgente" antes da reunião. Qual a conduta correta?</div>
+        <div class="quiz-options">
+            <button class="quiz-option" onclick="respQuiz(this,false,'uso-q1')"><span class="opt-letter">A</span><span>Conectar direto no notebook — é mídia de um parceiro conhecido.</span></button>
+            <button class="quiz-option" onclick="respQuiz(this,false,'uso-q1')"><span class="opt-letter">B</span><span>Abrir em um computador pessoal primeiro, para testar.</span></button>
+            <button class="quiz-option" onclick="respQuiz(this,true,'uso-q1')"><span class="opt-letter">C</span><span>Pedir o arquivo por e-mail corporativo e/ou consultar a TI antes de conectar a mídia.</span></button>
+        </div>
+        <div class="quiz-feedback" id="fb-uso-q1"></div>
+    </div>
+
+    <div class="lgpd">
+        <div class="lgpd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="lgpd-content"><div class="lgpd-title">Base legal · LGPD</div><div class="lgpd-artigos">Art. 46 — medidas técnicas e administrativas de segurança.</div></div>
+    </div>
+
+    <div class="section-footer">
+        <button class="btn-nav prev" onclick="abrirPorId('classificacao')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg><div class="btn-nav-label"><small>Anterior · VII</small><span>Classificação</span></div></button>
+        <button class="btn-mark-read" onclick="marcarLido('uso',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Marcar como lido</span></button>
+        <button class="btn-nav next" onclick="abrirPorId('bioinvasores')"><div class="btn-nav-label"><small>Próximo · IX</small><span>Bioinvasores</span></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+    </div>
+</section>
+
+<!-- =========== IX. BIOINVASORES =========== -->
+<section id="bioinvasores">
+    <div class="section-header">
+        <div class="section-eyebrow">Capítulo IX · Ameaças</div>
+        <h2>Bioinvasores Digitais</h2>
+        <p class="section-lead">Vírus, ransomware e phishing são os bioinvasores dos nossos sistemas — entram silenciosamente e comprometem operações inteiras.</p>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/></svg>Analogia Naval</h3>
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+            <div class="flip-face flip-front">
+                <div class="flip-face-header"><span class="flip-face-eyebrow">Toque para refletir</span></div>
+                <div class="flip-face-body">"Assim como cracas no casco aumentam o consumo de combustível e o risco da navegação, vírus digitais reduzem desempenho e comprometem a segurança da operação."</div>
+                <div class="flip-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>Ver tradução corporativa</div>
+            </div>
+            <div class="flip-face flip-back">
+                <div class="flip-face-header"><span class="flip-face-eyebrow">Tradução corporativa</span></div>
+                <div class="flip-face-body">O principal vetor de ataque hoje é o e-mail. Um clique em link suspeito pode criptografar dados da empresa inteira. Na dúvida: não clique, encaminhe para a TI avaliar.</div>
+                <div class="flip-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>Voltar</div>
+            </div>
+        </div>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Sinais de ameaça</h3>
+    <div class="exemplos">
+        <div class="caixa-label">Red flags mais comuns</div>
+        <ul>
+            <li>E-mails com urgência incomum ("responda em 1 hora" ou "sua conta será bloqueada").</li>
+            <li>Remetentes com domínios parecidos, mas levemente alterados (ex.: <i>macaenavegacao</i> vs <i>macae-navegacao</i>).</li>
+            <li>Anexos inesperados em formatos como .zip, .exe, .scr, .js.</li>
+        </ul>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Ações esperadas</h3>
+    <div class="acao">
+        <div class="caixa-label">Defesa ativa</div>
+        <ul>
+            <li>Não abra anexos suspeitos — mesmo que venham de contatos conhecidos.</li>
+            <li>Não clique em links desconhecidos; passe o mouse para conferir o endereço real.</li>
+            <li>Comunique imediatamente à TI qualquer suspeita. Reporte é melhor do que silêncio.</li>
+        </ul>
+    </div>
+
+    <div class="quiz">
+        <div class="quiz-header"><div class="quiz-badge">Teste rápido</div></div>
+        <div class="quiz-question">Você recebe um e-mail que parece do RH pedindo para confirmar seus dados em um link. O endereço do remetente termina em <i>@macae-rh.net</i>. O que fazer?</div>
+        <div class="quiz-options">
+            <button class="quiz-option" onclick="respQuiz(this,false,'bio-q1')"><span class="opt-letter">A</span><span>Clicar no link — o assunto parece oficial.</span></button>
+            <button class="quiz-option" onclick="respQuiz(this,false,'bio-q1')"><span class="opt-letter">B</span><span>Responder pedindo confirmação antes de clicar.</span></button>
+            <button class="quiz-option" onclick="respQuiz(this,true,'bio-q1')"><span class="opt-letter">C</span><span>Não clicar, reportar o e-mail à TI e, se necessário, contatar o RH pelo canal oficial.</span></button>
+        </div>
+        <div class="quiz-feedback" id="fb-bio-q1"></div>
+    </div>
+
+    <div class="lgpd">
+        <div class="lgpd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="lgpd-content"><div class="lgpd-title">Base legal · LGPD</div><div class="lgpd-artigos">Art. 46 · Art. 48 — segurança e comunicação de incidentes.</div></div>
+    </div>
+
+    <div class="section-footer">
+        <button class="btn-nav prev" onclick="abrirPorId('uso')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg><div class="btn-nav-label"><small>Anterior · VIII</small><span>Uso Aceitável</span></div></button>
+        <button class="btn-mark-read" onclick="marcarLido('bioinvasores',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Marcar como lido</span></button>
+        <button class="btn-nav next" onclick="abrirPorId('incidentes')"><div class="btn-nav-label"><small>Próximo · X</small><span>Incidentes</span></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+    </div>
+</section>
+
+<!-- =========== X. INCIDENTES =========== -->
+<section id="incidentes">
+    <div class="section-header">
+        <div class="section-eyebrow">Capítulo X · Ameaças &amp; Resposta</div>
+        <h2>Gestão de Incidentes</h2>
+        <p class="section-lead">Incidentes de segurança têm prioridade máxima. Na resposta a incidentes, tempo é dano — agir rápido limita o prejuízo.</p>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/></svg>Analogia Naval</h3>
+    <div class="caixa">
+        <div class="caixa-label">Reflexão</div>
+        <div class="caixa-content">Incidente digital é como princípio de incêndio a bordo: quanto mais rápido o reporte e a contenção, menor o dano — e maior a chance de proteger a operação.</div>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Protocolo dos 3 passos</h3>
+    <div class="acao">
+        <div class="caixa-label">Ao identificar um incidente</div>
+        <ul>
+            <li><b>1. Desconectar</b> — retire o cabo de rede ou desligue o Wi-Fi do equipamento afetado.</li>
+            <li><b>2. Comunicar</b> — acione imediatamente a TI e o gestor imediato pelos canais oficiais.</li>
+            <li><b>3. Não tentar resolver sozinho</b> — não reinicie, formate ou delete arquivos; preservar evidências é parte da resposta.</li>
+        </ul>
+    </div>
+
+    <div class="lgpd">
+        <div class="lgpd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="lgpd-content"><div class="lgpd-title">Base legal · LGPD</div><div class="lgpd-artigos">Art. 48 — comunicação de incidente de segurança à ANPD e aos titulares.</div></div>
+    </div>
+
+    <div class="section-footer">
+        <button class="btn-nav prev" onclick="abrirPorId('bioinvasores')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg><div class="btn-nav-label"><small>Anterior · IX</small><span>Bioinvasores</span></div></button>
+        <button class="btn-mark-read" onclick="marcarLido('incidentes',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Marcar como lido</span></button>
+        <button class="btn-nav next" onclick="abrirPorId('backup')"><div class="btn-nav-label"><small>Próximo · XI</small><span>Backup</span></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+    </div>
+</section>
+
+<!-- =========== XI. BACKUP =========== -->
+<section id="backup">
+    <div class="section-header">
+        <div class="section-eyebrow">Capítulo XI · Ameaças &amp; Resposta</div>
+        <h2>Backup &amp; Continuidade</h2>
+        <p class="section-lead">Backups garantem que a operação continue mesmo após falhas, ataques ou sinistros. É o nosso seguro digital.</p>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>Analogia Naval</h3>
+    <div class="caixa">
+        <div class="caixa-label">Reflexão</div>
+        <div class="caixa-content">Backup é o diário de bordo guardado fora da embarcação — se o navio sofrer avaria, o registro se preserva e a operação pode ser reconstruída.</div>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Responsabilidades do colaborador</h3>
+    <div class="acao">
+        <div class="caixa-label">Seu papel no backup corporativo</div>
+        <ul>
+            <li>Salve documentos de trabalho apenas nos locais oficiais (pastas de rede, <span class="tooltip">nuvem corporativa<span class="tooltip-text">Serviço de armazenamento homologado pela TI — como OneDrive/SharePoint corporativo — onde o backup é automático.</span></span>).</li>
+            <li>Evite guardar versões definitivas apenas no desktop ou em pen drives pessoais.</li>
+            <li>Comunique à TI caso perceba que arquivos importantes estão fora do fluxo de backup.</li>
+        </ul>
+    </div>
+
+    <div class="lgpd">
+        <div class="lgpd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="lgpd-content"><div class="lgpd-title">Base legal · LGPD</div><div class="lgpd-artigos">Art. 46 — medidas técnicas aptas a proteger dados pessoais.</div></div>
+    </div>
+
+    <div class="section-footer">
+        <button class="btn-nav prev" onclick="abrirPorId('incidentes')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg><div class="btn-nav-label"><small>Anterior · X</small><span>Incidentes</span></div></button>
+        <button class="btn-mark-read" onclick="marcarLido('backup',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Marcar como lido</span></button>
+        <button class="btn-nav next" onclick="abrirPorId('embarcado')"><div class="btn-nav-label"><small>Próximo · XII</small><span>Uso a Bordo</span></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+    </div>
+</section>
+
+<!-- =========== XII. USO A BORDO =========== -->
+<section id="embarcado">
+    <div class="section-header">
+        <div class="section-eyebrow">Capítulo XII · Ameaças &amp; Resposta</div>
+        <h2>Uso de Tecnologia a Bordo</h2>
+        <p class="section-lead">A tecnologia embarcada deve ser tratada como equipamento crítico de navegação — conectividade, radar e sistemas operacionais compartilham a mesma importância.</p>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1l9 4v6c0 5.55-3.84 10.74-9 12-5.16-1.26-9-6.45-9-12V5l9-4z"/></svg>Analogia Naval</h3>
+    <div class="caixa">
+        <div class="caixa-label">Reflexão</div>
+        <div class="caixa-content">Conectar-se a redes desconhecidas em porto é como deixar alguém desconhecido subir a bordo sem identificação — o risco de abertura de canal hostil é imediato.</div>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Ações esperadas</h3>
+    <div class="acao">
+        <div class="caixa-label">Protocolos de bordo</div>
+        <ul>
+            <li>Não conecte equipamentos corporativos a redes Wi-Fi públicas ou de origem desconhecida.</li>
+            <li>Proteja fisicamente os dispositivos durante embarques, desembarques e deslocamentos.</li>
+            <li>Utilize apenas sistemas e aplicativos autorizados pela TI — nada de apps "de conveniência".</li>
+        </ul>
+    </div>
+
+    <div class="lgpd">
+        <div class="lgpd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="lgpd-content"><div class="lgpd-title">Base legal · LGPD</div><div class="lgpd-artigos">Art. 46 — medidas de segurança, técnicas e administrativas.</div></div>
+    </div>
+
+    <div class="section-footer">
+        <button class="btn-nav prev" onclick="abrirPorId('backup')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg><div class="btn-nav-label"><small>Anterior · XI</small><span>Backup</span></div></button>
+        <button class="btn-mark-read" onclick="marcarLido('embarcado',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Marcar como lido</span></button>
+        <button class="btn-nav next" onclick="abrirPorId('lgpd')"><div class="btn-nav-label"><small>Próximo · XIII</small><span>LGPD</span></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+    </div>
+</section>
+
+<!-- =========== XIII. LGPD =========== -->
+<section id="lgpd">
+    <div class="section-header">
+        <div class="section-eyebrow">Capítulo XIII · Conformidade</div>
+        <h2>Proteção de Dados · LGPD</h2>
+        <p class="section-lead">A Macaé Navegação trata dados pessoais com responsabilidade, segurança e finalidade específica — obrigação legal e compromisso com nossos colaboradores, clientes e parceiros.</p>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1l9 4v6c0 5.55-3.84 10.74-9 12-5.16-1.26-9-6.45-9-12V5l9-4z"/></svg>Analogia Naval</h3>
+    <div class="caixa">
+        <div class="caixa-label">Reflexão</div>
+        <div class="caixa-content">Dados pessoais são como documentos confidenciais do navio — certificados, registros de tripulação, contratos. Não podem circular fora dos canais oficiais nem cair em mãos erradas.</div>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Princípios-chave</h3>
+    <div class="exemplos" style="background:linear-gradient(135deg,rgba(201,169,110,0.06),rgba(201,169,110,0.02));border-color:rgba(201,169,110,0.35);border-left-color:var(--ouro-escuro);">
+        <div class="caixa-label" style="color:var(--ouro-escuro);">Princípios aplicados</div>
+        <ul style="list-style:none;padding:0;margin:8px 0 0 0;">
+            <li style="padding:6px 0 6px 28px;position:relative;"><span style="position:absolute;left:0;top:8px;font-family:'Cormorant Garamond',serif;color:var(--ouro-escuro);font-weight:600;">·</span><b>Finalidade</b> — dados são coletados para um propósito claro e informado.</li>
+            <li style="padding:6px 0 6px 28px;position:relative;"><span style="position:absolute;left:0;top:8px;font-family:'Cormorant Garamond',serif;color:var(--ouro-escuro);font-weight:600;">·</span><b>Necessidade</b> — coletamos e tratamos apenas o mínimo necessário.</li>
+            <li style="padding:6px 0 6px 28px;position:relative;"><span style="position:absolute;left:0;top:8px;font-family:'Cormorant Garamond',serif;color:var(--ouro-escuro);font-weight:600;">·</span><b>Segurança</b> — medidas técnicas e administrativas protegem contra acessos não autorizados.</li>
+            <li style="padding:6px 0 6px 28px;position:relative;"><span style="position:absolute;left:0;top:8px;font-family:'Cormorant Garamond',serif;color:var(--ouro-escuro);font-weight:600;">·</span><b>Transparência</b> — titulares têm direito a saber o que tratamos e por quê.</li>
+        </ul>
+    </div>
+
+    <div class="lgpd">
+        <div class="lgpd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="lgpd-content"><div class="lgpd-title">Base legal · LGPD</div><div class="lgpd-artigos">Art. 6º · Art. 37 · Art. 46 · Art. 48 — conjunto central de obrigações de tratamento.</div></div>
+    </div>
+
+    <div class="section-footer">
+        <button class="btn-nav prev" onclick="abrirPorId('embarcado')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg><div class="btn-nav-label"><small>Anterior · XII</small><span>Uso a Bordo</span></div></button>
+        <button class="btn-mark-read" onclick="marcarLido('lgpd',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Marcar como lido</span></button>
+        <button class="btn-nav next" onclick="abrirPorId('treinamento')"><div class="btn-nav-label"><small>Próximo · XIV</small><span>Conscientização</span></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+    </div>
+</section>
+
+<!-- =========== XIV. CONSCIENTIZAÇÃO =========== -->
+<section id="treinamento">
+    <div class="section-header">
+        <div class="section-eyebrow">Capítulo XIV · Conformidade</div>
+        <h2>Conscientização</h2>
+        <p class="section-lead">A segurança da informação se sustenta em comportamento contínuo e disciplina diária — não em um treinamento único.</p>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Analogia Naval</h3>
+    <div class="caixa">
+        <div class="caixa-label">Reflexão</div>
+        <div class="caixa-content">A segurança digital deve ser tão natural quanto os procedimentos de segurança a bordo: o colete salva-vidas não é discutido durante a emergência — ele já está posicionado.</div>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Compromissos do colaborador</h3>
+    <div class="acao">
+        <div class="caixa-label">Postura esperada</div>
+        <ul>
+            <li>Participe de treinamentos e campanhas de conscientização oferecidas pela empresa.</li>
+            <li>Consulte a PSI sempre que houver dúvida sobre tratamento de informação.</li>
+            <li>Compartilhe boas práticas com a equipe — segurança cresce por contágio positivo.</li>
+        </ul>
+    </div>
+
+    <div class="lgpd">
+        <div class="lgpd-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="lgpd-content"><div class="lgpd-title">Base legal · LGPD</div><div class="lgpd-artigos">Art. 50 — boas práticas e governança.</div></div>
+    </div>
+
+    <div class="section-footer">
+        <button class="btn-nav prev" onclick="abrirPorId('lgpd')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg><div class="btn-nav-label"><small>Anterior · XIII</small><span>LGPD</span></div></button>
+        <button class="btn-mark-read" onclick="marcarLido('treinamento',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Marcar como lido</span></button>
+        <button class="btn-nav next" onclick="abrirPorId('revisao')"><div class="btn-nav-label"><small>Próximo · XV</small><span>Revisão</span></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+    </div>
+</section>
+
+<!-- =========== XV. REVISÃO =========== -->
+<section id="revisao">
+    <div class="section-header">
+        <div class="section-eyebrow">Capítulo XV · Conformidade</div>
+        <h2>Revisão &amp; Vigência</h2>
+        <p class="section-lead">Esta Política entra em vigor na data de sua publicação e será revisada periodicamente ou sempre que houver alterações relevantes.</p>
+    </div>
+
+    <h3><svg class="h3-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>Gatilhos de revisão</h3>
+    <div class="exemplos">
+        <div class="caixa-label">Revisão acontece quando</div>
+        <ul>
+            <li>Há alteração em processos internos, tecnologias ou estrutura da empresa.</li>
+            <li>Surgem novos requisitos legais ou regulatórios (ex.: atualizações da LGPD, normas da ANPD).</li>
+            <li>Incidentes relevantes revelam a necessidade de ajustes em controles ou diretrizes.</li>
+        </ul>
+    </div>
+
+    <div class="acao">
+        <div class="caixa-label">Sua responsabilidade</div>
+        <ul>
+            <li>Todos os colaboradores são responsáveis por manter-se atualizados quanto à versão vigente.</li>
+            <li>A PSI atualizada é comunicada pelos canais oficiais e publicada no portal corporativo.</li>
+        </ul>
+    </div>
+
+    <div class="section-footer">
+        <button class="btn-nav prev" onclick="abrirPorId('treinamento')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg><div class="btn-nav-label"><small>Anterior · XIV</small><span>Conscientização</span></div></button>
+        <button class="btn-mark-read" onclick="marcarLido('revisao',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Marcar como lido</span></button>
+        <button class="btn-nav next" onclick="abrirPorId('assinatura')"><div class="btn-nav-label"><small>Próximo · XVI</small><span>Ciência e Aceite</span></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+    </div>
+</section>
+
+<!-- =========== XVI. ASSINATURA =========== -->
+<section id="assinatura">
+    <div class="section-header">
+        <div class="section-eyebrow">Capítulo XVI · Formalização</div>
+        <h2>Ciência &amp; Aceite</h2>
+        <p class="section-lead">Ao preencher todos os campos abaixo, você confirma que leu, compreendeu e se compromete com a Política de Segurança da Informação da Macaé Navegação. O sistema gerará automaticamente um Termo em PDF pronto para arquivo e assinatura.</p>
+    </div>
+
+    <div class="form-grid">
+        <div class="form-field full">
+            <label for="nome">Nome completo <span class="req">*</span></label>
+            <input id="nome" type="text" autocomplete="name" placeholder="Ex.: Maria Silva Oliveira">
+        </div>
+        <div class="form-field">
+            <label for="cpf">CPF <span class="req">*</span></label>
+            <input id="cpf" type="text" inputmode="numeric" placeholder="000.000.000-00" maxlength="14" oninput="mascCPF(this)">
+        </div>
+        <div class="form-field">
+            <label for="matricula">Matrícula / Registro</label>
+            <input id="matricula" type="text" placeholder="Opcional">
+        </div>
+        <div class="form-field">
+            <label for="cargo">Cargo / Função <span class="req">*</span></label>
+            <input id="cargo" type="text" placeholder="Ex.: Analista de Operações">
+        </div>
+        <div class="form-field">
+            <label for="area">Área / Departamento</label>
+            <input id="area" type="text" placeholder="Ex.: TI, Operações, RH">
+        </div>
+        <div class="form-field">
+            <label for="local">Local <span class="req">*</span></label>
+            <input id="local" type="text" placeholder="Ex.: Macaé, RJ">
+        </div>
+        <div class="form-field">
+            <label for="data">Data <span class="req">*</span></label>
+            <input id="data" type="date">
+        </div>
+    </div>
+
+    <div class="signature-preview" id="preview">
+        Eu, <strong>[seu nome]</strong>, ao clicar em <strong>Confirmar e Gerar Termo</strong>, declaro que recebi, li e compreendi a Política de Segurança da Informação da Macaé Navegação, comprometendo-me a cumpri-la integralmente.
+    </div>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:8px;">
+        <button class="btn-primary" onclick="validarEgerarPDF()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Confirmar e Gerar Termo
+        </button>
+        <span style="font-size:12.5px;color:var(--tinta-suave);">Campos com <span style="color:var(--perigo);">*</span> são obrigatórios.</span>
+    </div>
+
+    <div class="section-footer">
+        <button class="btn-nav prev" onclick="abrirPorId('revisao')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg><div class="btn-nav-label"><small>Anterior · XV</small><span>Revisão e Vigência</span></div></button>
+        <div></div>
+        <button class="btn-nav" onclick="abrirPorId('intro')"><div class="btn-nav-label"><small>Voltar ao</small><span>Início</span></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 22 9 12 15 12 15 22"/><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></button>
+    </div>
+</section>
+
+</main>
+
+<script>
+/* ======== STATE ======== */
+const TOTAL_SECOES = 16;
+const lidas = new Set();
+
+/* ======== NAVEGAÇÃO ======== */
+function abrir(id, btn){
+    document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
+    document.querySelectorAll("nav button[data-secao]").forEach(b => b.classList.remove("active"));
+    const target = document.getElementById(id);
+    if(target) target.classList.add("active");
+    if(btn){
+        btn.classList.add("active");
+    }else{
+        const navBtn = document.querySelector(`nav button[data-secao="${id}"]`);
+        if(navBtn) navBtn.classList.add("active");
+    }
+    window.scrollTo({top:0,behavior:"smooth"});
+    // fecha menu em mobile
+    document.getElementById("navMenu").classList.remove("open");
+}
+
+function abrirPorId(id){
+    const navBtn = document.querySelector(`nav button[data-secao="${id}"]`);
+    abrir(id, navBtn);
+}
+
+function toggleMenu(){
+    document.getElementById("navMenu").classList.toggle("open");
+}
+
+/* ======== BUSCA NO MENU ======== */
+function filtrarNav(termo){
+    const t = termo.trim().toLowerCase();
+    document.querySelectorAll("nav button[data-secao]").forEach(b => {
+        const texto = b.textContent.toLowerCase();
+        b.style.display = t === "" || texto.includes(t) ? "flex" : "none";
+    });
+    document.querySelectorAll(".nav-group-title").forEach(g => {
+        g.style.display = t === "" ? "block" : "none";
+    });
+}
+
+/* ======== MARCAR SEÇÃO COMO LIDA ======== */
+function marcarLido(id, btn){
+    lidas.add(id);
+    const navBtn = document.querySelector(`nav button[data-secao="${id}"]`);
+    if(navBtn) navBtn.classList.add("read");
+    if(btn){
+        btn.classList.add("done");
+        btn.querySelector("span").textContent = "Lido";
+    }
+    atualizarProgresso();
+}
+
+function atualizarProgresso(){
+    const pct = Math.round((lidas.size / TOTAL_SECOES) * 100);
+    document.getElementById("progressText").textContent = `${lidas.size} / ${TOTAL_SECOES}`;
+    document.getElementById("progressFill").style.width = pct + "%";
+}
+
+/* ======== CHECKLIST ======== */
+function toggleCheck(el){
+    el.classList.toggle("checked");
+}
+
+/* ======== QUIZ ======== */
+function respQuiz(btn, correto, id){
+    const parent = btn.parentElement;
+    const feedback = document.getElementById("fb-" + id);
+    parent.querySelectorAll(".quiz-option").forEach(o => o.style.pointerEvents = "none");
+    if(correto){
+        btn.classList.add("correct");
+        feedback.className = "quiz-feedback show correct";
+        feedback.innerHTML = "<strong>Exato.</strong> Essa é a conduta alinhada à PSI — dúvida sobre origem? TI primeiro, ação depois.";
+    }else{
+        btn.classList.add("wrong");
+        // destaca a correta
+        parent.querySelectorAll(".quiz-option").forEach(o => {
+            if(o.getAttribute("onclick") && o.getAttribute("onclick").includes("true")){
+                o.classList.add("correct");
+            }
+        });
+        feedback.className = "quiz-feedback show wrong";
+        feedback.innerHTML = "<strong>Não é essa.</strong> A opção em verde é a conduta correta — reveja o princípio aplicado nesta seção.";
+    }
+}
+
+/* ======== MÁSCARA CPF ======== */
+function mascCPF(el){
+    let v = el.value.replace(/\D/g,"").slice(0,11);
+    if(v.length > 9) v = v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/,"$1.$2.$3-$4");
+    else if(v.length > 6) v = v.replace(/(\d{3})(\d{3})(\d{1,3})/,"$1.$2.$3");
+    else if(v.length > 3) v = v.replace(/(\d{3})(\d{1,3})/,"$1.$2");
+    el.value = v;
+}
+
+/* ======== PREVIEW DA ASSINATURA ======== */
+document.addEventListener("input", (e) => {
+    if(e.target.id === "nome"){
+        const v = e.target.value.trim();
+        const strong = document.querySelector("#preview strong");
+        if(strong) strong.textContent = v || "[seu nome]";
+    }
+});
+
+/* ======== VALIDAÇÃO E GERAÇÃO DE PDF ======== */
+function validarEgerarPDF(){
+    const campos = [
+        {id:"nome", nome:"Nome completo"},
+        {id:"cpf", nome:"CPF"},
+        {id:"cargo", nome:"Cargo / Função"},
+        {id:"local", nome:"Local"},
+        {id:"data", nome:"Data"}
+    ];
+
+    // limpa erros
+    document.querySelectorAll(".form-field input").forEach(i => i.classList.remove("error"));
+
+    for(let c of campos){
+        const el = document.getElementById(c.id);
+        if(!el || !el.value.trim()){
+            el.classList.add("error");
+            alert("Campo obrigatório: " + c.nome);
+            el.focus();
+            return;
+        }
+    }
+
+    // valida CPF (11 dígitos)
+    const cpfNum = document.getElementById("cpf").value.replace(/\D/g,"");
+    if(cpfNum.length !== 11){
+        document.getElementById("cpf").classList.add("error");
+        alert("CPF inválido. Informe os 11 dígitos.");
+        document.getElementById("cpf").focus();
+        return;
+    }
+
+    gerarPDF();
+}
+
+/* ======== GERAÇÃO DE TERMO EM PDF ======== */
+function gerarPDF(){
+    const dados = {
+        nome: document.getElementById("nome").value.trim(),
+        cpf: document.getElementById("cpf").value.trim(),
+        matricula: document.getElementById("matricula").value.trim(),
+        cargo: document.getElementById("cargo").value.trim(),
+        area: document.getElementById("area").value.trim(),
+        local: document.getElementById("local").value.trim(),
+        data: document.getElementById("data").value
+    };
+
+    const dataFmt = dados.data ? new Date(dados.data + "T12:00:00").toLocaleDateString("pt-BR", {day:"2-digit",month:"long",year:"numeric"}) : "";
+    const agora = new Date();
+    const protocolo = "MN-PSI-" + agora.getFullYear() + String(agora.getMonth()+1).padStart(2,"0") + String(agora.getDate()).padStart(2,"0") + "-" + String(Math.floor(Math.random()*9000)+1000);
+
+    const termo = `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Termo de Ciência e Aceite — PSI Macaé Navegação</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+@page{size:A4;margin:0;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+    font-family:"Inter",Arial,sans-serif;
+    color:#1a1a1a;
+    background:#fff;
+    font-size:11pt;
+    line-height:1.55;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+}
+.serif{font-family:"Cormorant Garamond",Georgia,serif;}
+.page{
+    width:210mm;
+    min-height:297mm;
+    padding:0;
+    margin:0 auto;
+    position:relative;
+    page-break-after:always;
+    background:#fff;
+}
+.page:last-child{page-break-after:auto;}
+
+/* CABEÇALHO DE TOPO */
+.hdr{
+    background:linear-gradient(135deg,#0b2545 0%,#13315c 100%);
+    color:#f7f3ec;
+    padding:22mm 20mm 14mm 20mm;
+    position:relative;
+    overflow:hidden;
+}
+.hdr::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:2mm;
+    background:linear-gradient(90deg,transparent,#c9a96e,transparent);
+}
+.hdr::after{
+    content:"";position:absolute;bottom:0;left:0;right:0;height:0.3mm;
+    background:linear-gradient(90deg,transparent,rgba(201,169,110,0.5),transparent);
+}
+.hdr-row{display:flex;align-items:center;justify-content:space-between;gap:16mm;}
+.hdr-brand{display:flex;align-items:center;gap:10mm;}
+.hdr-logo{
+    width:14mm;height:14mm;border-radius:50%;
+    border:0.5mm solid #c9a96e;
+    display:flex;align-items:center;justify-content:center;color:#c9a96e;
+    background:rgba(201,169,110,0.08);
+}
+.hdr-title{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;font-size:18pt;line-height:1;color:#f7f3ec;letter-spacing:-0.01em;}
+.hdr-sub{font-size:8pt;letter-spacing:0.28em;color:#c9a96e;text-transform:uppercase;margin-top:1.5mm;}
+.hdr-meta{text-align:right;font-size:8pt;letter-spacing:0.12em;color:rgba(247,243,236,0.7);text-transform:uppercase;line-height:1.5;}
+.hdr-meta strong{color:#c9a96e;font-weight:500;display:block;font-size:9pt;letter-spacing:0.18em;margin-top:1mm;}
+
+/* TÍTULO DO DOCUMENTO */
+.doc-title-wrap{
+    padding:16mm 20mm 0 20mm;
+}
+.doc-eyebrow{
+    font-size:9pt;
+    letter-spacing:0.26em;
+    text-transform:uppercase;
+    color:#a68651;
+    margin-bottom:4mm;
+    display:flex;align-items:center;gap:4mm;
+}
+.doc-eyebrow::before{content:"";width:10mm;height:0.3mm;background:#c9a96e;}
+.doc-title{
+    font-family:"Cormorant Garamond",Georgia,serif;
+    font-size:30pt;
+    font-weight:500;
+    color:#0b2545;
+    line-height:1.05;
+    letter-spacing:-0.01em;
+    margin-bottom:6mm;
+}
+.doc-divider{
+    height:0.3mm;
+    background:#d6cdb8;
+    margin:6mm 0 8mm 0;
+}
+
+/* CORPO */
+.body{padding:0 20mm;}
+
+h2.sec-title{
+    font-family:"Cormorant Garamond",Georgia,serif;
+    font-size:16pt;
+    font-weight:600;
+    color:#0b2545;
+    margin:10mm 0 4mm 0;
+    padding-bottom:2mm;
+    border-bottom:0.3mm solid #d6cdb8;
+    display:flex;align-items:center;gap:3mm;
+}
+h2.sec-title .num{
+    font-family:"Cormorant Garamond",Georgia,serif;
+    color:#a68651;
+    font-size:14pt;
+    font-weight:500;
+}
+
+p{margin-bottom:3.5mm;text-align:justify;color:#3d3d3d;}
+
+/* TABELA DE IDENTIFICAÇÃO */
+.tbl-id{
+    width:100%;
+    border-collapse:collapse;
+    margin:4mm 0 6mm 0;
+    font-size:10pt;
+    border:0.3mm solid #d6cdb8;
+}
+.tbl-id td{
+    padding:3mm 4mm;
+    border-bottom:0.2mm solid #ebe4d6;
+    vertical-align:top;
+}
+.tbl-id td:first-child{
+    width:36mm;
+    background:#fbf8f1;
+    font-size:8pt;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:#0b2545;
+    font-weight:600;
+    border-right:0.2mm solid #d6cdb8;
+}
+.tbl-id td:last-child{
+    font-family:"Cormorant Garamond",Georgia,serif;
+    font-size:12pt;
+    color:#1a1a1a;
+    font-weight:500;
+}
+.tbl-id tr:last-child td{border-bottom:none;}
+
+/* COMPROMISSO */
+.commit-list{
+    background:#fbf8f1;
+    border:0.3mm solid #d6cdb8;
+    border-top:0.8mm solid #c9a96e;
+    padding:6mm 8mm;
+    margin:4mm 0;
+    list-style:none;
+}
+.commit-list li{
+    padding:2mm 0 2mm 8mm;
+    position:relative;
+    font-size:10.5pt;
+    color:#1a1a1a;
+    line-height:1.5;
+}
+.commit-list li + li{border-top:0.2mm dashed #ebe4d6;}
+.commit-list li::before{
+    content:"◆";
+    color:#c9a96e;
+    position:absolute;
+    left:0;
+    top:2.5mm;
+    font-size:9pt;
+}
+
+/* BLOCO DE ASSINATURA */
+.signature{
+    margin-top:16mm;
+    padding:0 0 0 0;
+}
+.sign-line{
+    border-top:0.4mm solid #1a1a1a;
+    margin:20mm 10mm 2mm 10mm;
+}
+.sign-label{
+    text-align:center;
+    font-size:9pt;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:#3d3d3d;
+    font-weight:500;
+}
+.sign-name{
+    text-align:center;
+    font-family:"Cormorant Garamond",Georgia,serif;
+    font-size:12pt;
+    color:#0b2545;
+    margin-top:1.5mm;
+    font-weight:500;
+}
+.sign-info{
+    text-align:center;
+    font-size:8.5pt;
+    color:#3d3d3d;
+    margin-top:1mm;
+}
+
+/* DUPLA COLUNA DE ASSINATURA */
+.sign-grid{
+    display:flex;
+    gap:10mm;
+    margin-top:18mm;
+}
+.sign-col{flex:1;}
+.sign-col .sign-line{margin:20mm 0 2mm 0;}
+
+/* FOOTER */
+.ftr{
+    position:absolute;
+    bottom:12mm;
+    left:20mm;
+    right:20mm;
+    padding-top:3mm;
+    border-top:0.2mm solid #d6cdb8;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:7.5pt;
+    color:#3d3d3d;
+    letter-spacing:0.08em;
+}
+.ftr-brand{
+    font-family:"Cormorant Garamond",Georgia,serif;
+    font-size:10pt;
+    font-weight:500;
+    color:#0b2545;
+    letter-spacing:0;
+}
+.ftr-brand span{color:#a68651;}
+.ftr-right{text-align:right;}
+
+/* CAIXA LEGAL */
+.legal-box{
+    background:#fbf8f1;
+    border-left:0.8mm solid #0b2545;
+    padding:4mm 6mm;
+    margin:6mm 0;
+    font-size:9.5pt;
+    color:#3d3d3d;
+    line-height:1.55;
+    text-align:justify;
+}
+.legal-box strong{color:#0b2545;font-weight:600;}
+
+/* DECLARAÇÃO PRINCIPAL */
+.declaracao{
+    font-family:"Cormorant Garamond",Georgia,serif;
+    font-size:12.5pt;
+    line-height:1.65;
+    color:#1a1a1a;
+    text-align:justify;
+    margin:4mm 0;
+}
+.declaracao strong{color:#0b2545;font-weight:600;}
+
+/* SEAL / CARIMBO */
+.seal{
+    position:absolute;
+    right:20mm;
+    top:84mm;
+    width:36mm;height:36mm;
+    border:0.5mm solid #c9a96e;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#a68651;
+    background:rgba(201,169,110,0.04);
+    transform:rotate(-8deg);
+    text-align:center;
+    padding:3mm;
+}
+.seal-inner{
+    font-family:"Cormorant Garamond",Georgia,serif;
+    font-size:7pt;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    line-height:1.4;
+    font-weight:500;
+}
+.seal-inner strong{
+    display:block;
+    font-size:10pt;
+    letter-spacing:0.14em;
+    margin:1mm 0;
+    color:#0b2545;
+}
+
+/* QR placeholder (simples, sem dependência) */
+.receipt{
+    display:flex;
+    gap:6mm;
+    align-items:center;
+    margin-top:10mm;
+    padding:5mm;
+    background:#fbf8f1;
+    border:0.2mm solid #d6cdb8;
+}
+.receipt-icon{
+    width:18mm;height:18mm;
+    background:
+        linear-gradient(45deg,transparent 48%,#0b2545 48% 52%,transparent 52%),
+        linear-gradient(-45deg,transparent 48%,#0b2545 48% 52%,transparent 52%),
+        #fff;
+    border:0.4mm solid #0b2545;
+    flex-shrink:0;
+    position:relative;
+}
+.receipt-icon::before,.receipt-icon::after{
+    content:"";position:absolute;width:5mm;height:5mm;border:1mm solid #0b2545;
+}
+.receipt-icon::before{top:1mm;left:1mm;}
+.receipt-icon::after{bottom:1mm;right:1mm;}
+.receipt-text{font-size:8pt;color:#3d3d3d;line-height:1.45;}
+.receipt-text strong{color:#0b2545;display:block;font-size:9pt;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:1mm;}
+
+@media print{
+    body{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .no-print{display:none;}
+    .page{page-break-after:always;}
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+    <div class="hdr">
+        <div class="hdr-row">
+            <div class="hdr-brand">
+                <div class="hdr-logo">
+                    <svg width="8mm" height="8mm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M12 22V7"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                </div>
+                <div>
+                    <div class="hdr-title">Macaé Navegação</div>
+                    <div class="hdr-sub">Política de Segurança da Informação</div>
+                </div>
+            </div>
+            <div class="hdr-meta">
+                Documento · PSI<br>
+                <strong>Termo de Ciência</strong>
+                Protocolo ${protocolo}
+            </div>
+        </div>
+    </div>
+
+    <div class="doc-title-wrap">
+        <div class="doc-eyebrow">Formalização · Capítulo XVI</div>
+        <div class="doc-title">Termo de Ciência<br>e Aceite</div>
+        <div class="doc-divider"></div>
+    </div>
+
+    <div class="seal">
+        <div class="seal-inner">
+            Macaé<br>
+            <strong>PSI</strong>
+            ${agora.getFullYear()}
+        </div>
+    </div>
+
+    <div class="body">
+
+        <h2 class="sec-title"><span class="num">§ 1</span>Identificação do Colaborador</h2>
+        <table class="tbl-id">
+            <tr><td>Nome completo</td><td>${escapeHtml(dados.nome)}</td></tr>
+            <tr><td>CPF</td><td>${escapeHtml(dados.cpf)}</td></tr>
+            ${dados.matricula ? `<tr><td>Matrícula</td><td>${escapeHtml(dados.matricula)}</td></tr>` : ""}
+            <tr><td>Cargo / Função</td><td>${escapeHtml(dados.cargo)}</td></tr>
+            ${dados.area ? `<tr><td>Área</td><td>${escapeHtml(dados.area)}</td></tr>` : ""}
+            <tr><td>Local</td><td>${escapeHtml(dados.local)}</td></tr>
+            <tr><td>Data</td><td>${dataFmt}</td></tr>
+        </table>
+
+        <h2 class="sec-title"><span class="num">§ 2</span>Declaração</h2>
+        <p class="declaracao">
+            Eu, <strong>${escapeHtml(dados.nome)}</strong>, inscrito(a) no CPF sob o nº <strong>${escapeHtml(dados.cpf)}</strong>,
+            ocupante do cargo de <strong>${escapeHtml(dados.cargo)}</strong>${dados.area ? ` na área de <strong>${escapeHtml(dados.area)}</strong>` : ""},
+            declaro que recebi, li e compreendi a <strong>Política de Segurança da Informação (PSI)</strong>
+            da <strong>Macaé Navegação</strong>, estando ciente de seus termos, diretrizes e implicações.
+        </p>
+    </div>
+
+    <div class="ftr">
+        <div class="ftr-brand">Macaé <span>·</span> Navegação</div>
+        <div>PSI · Termo de Ciência e Aceite</div>
+        <div class="ftr-right">Página 1 de 2</div>
+    </div>
+</div>
+
+<div class="page">
+    <div class="hdr" style="padding:14mm 20mm 10mm 20mm;">
+        <div class="hdr-row">
+            <div class="hdr-brand">
+                <div class="hdr-logo" style="width:10mm;height:10mm;"><svg width="6mm" height="6mm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M12 22V7"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
+                <div>
+                    <div class="hdr-title" style="font-size:14pt;">Macaé Navegação</div>
+                    <div class="hdr-sub" style="font-size:7pt;">Termo de Ciência e Aceite · PSI</div>
+                </div>
+            </div>
+            <div class="hdr-meta">Protocolo<br><strong>${protocolo}</strong></div>
+        </div>
+    </div>
+
+    <div class="body" style="padding-top:10mm;">
+
+        <h2 class="sec-title"><span class="num">§ 3</span>Compromissos Assumidos</h2>
+        <p>Ao firmar o presente termo, comprometo-me, no exercício de minhas atividades, a:</p>
+        <ul class="commit-list">
+            <li>Cumprir integralmente as diretrizes estabelecidas na Política de Segurança da Informação e em suas normas complementares.</li>
+            <li>Utilizar os recursos tecnológicos disponibilizados pela empresa exclusivamente para finalidades profissionais.</li>
+            <li>Manter sigilo sobre senhas, credenciais e demais informações de acesso, não as compartilhando com terceiros, ainda que colegas de trabalho.</li>
+            <li>Proteger os equipamentos, dispositivos e informações sob minha responsabilidade contra perdas, danos e acessos não autorizados.</li>
+            <li>Comunicar imediatamente, pelos canais oficiais, qualquer incidente, suspeita de incidente ou vulnerabilidade identificada.</li>
+            <li>Respeitar o princípio do menor privilégio e utilizar apenas os acessos necessários à execução das minhas atribuições.</li>
+            <li>Participar dos programas de conscientização, treinamentos e campanhas de segurança promovidos pela empresa.</li>
+            <li>Observar a legislação aplicável, em especial a Lei Geral de Proteção de Dados (Lei nº 13.709/2018).</li>
+        </ul>
+
+        <h2 class="sec-title"><span class="num">§ 4</span>Ciência das Consequências</h2>
+        <div class="legal-box">
+            Declaro estar ciente de que o descumprimento das diretrizes estabelecidas na <strong>PSI</strong>
+            poderá acarretar medidas administrativas, disciplinares e legais cabíveis, nos termos da
+            política interna da <strong>Macaé Navegação</strong>, da legislação trabalhista vigente e da
+            <strong>Lei Geral de Proteção de Dados Pessoais (Lei nº 13.709/2018)</strong>.
+        </div>
+
+        <div class="receipt">
+            <div class="receipt-icon"></div>
+            <div class="receipt-text">
+                <strong>Registro eletrônico</strong>
+                Documento gerado automaticamente em ${agora.toLocaleString("pt-BR")} · Protocolo <b>${protocolo}</b> · Versão vigente da PSI na data de geração.
+            </div>
+        </div>
+
+        <div class="sign-grid">
+            <div class="sign-col">
+                <div class="sign-line"></div>
+                <div class="sign-label">Colaborador</div>
+                <div class="sign-name">${escapeHtml(dados.nome)}</div>
+                <div class="sign-info">CPF ${escapeHtml(dados.cpf)}${dados.matricula ? " · Matrícula " + escapeHtml(dados.matricula) : ""}</div>
+            </div>
+            <div class="sign-col">
+                <div class="sign-line"></div>
+                <div class="sign-label">Pela Empresa</div>
+                <div class="sign-name">Macaé Navegação</div>
+                <div class="sign-info">Representante autorizado</div>
+            </div>
+        </div>
+
+        <p style="text-align:center;margin-top:8mm;font-size:10pt;color:#3d3d3d;">
+            ${escapeHtml(dados.local)}, ${dataFmt}.
+        </p>
+
+    </div>
+
+    <div class="ftr">
+        <div class="ftr-brand">Macaé <span>·</span> Navegação</div>
+        <div>PSI · Termo de Ciência e Aceite</div>
+        <div class="ftr-right">Página 2 de 2</div>
+    </div>
+</div>
+
+<script>
+window.onload = function(){ setTimeout(function(){ window.print(); }, 400); };
+<\/script>
+</body>
+</html>`;
+
+    const w = window.open("", "_blank");
+    if(!w){
+        alert("Seu navegador bloqueou a abertura do termo. Por favor, permita pop-ups para esta página e tente novamente.");
+        return;
+    }
+    w.document.open();
+    w.document.write(termo);
+    w.document.close();
+}
+
+/* util: escapa HTML para injeção segura nos campos do PDF */
+function escapeHtml(s){
+    if(!s) return "";
+    return String(s)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#39;");
+}
+
+/* ======== ATALHOS DE TECLADO ======== */
+document.addEventListener("keydown", (e) => {
+    if(e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+    const ativa = document.querySelector("section.active");
+    if(!ativa) return;
+    const ordem = ["intro","objetivo","principios","responsabilidades","ativos","acesso","classificacao","uso","bioinvasores","incidentes","backup","embarcado","lgpd","treinamento","revisao","assinatura"];
+    const idx = ordem.indexOf(ativa.id);
+    if(e.key === "ArrowRight" && idx < ordem.length - 1){
+        abrirPorId(ordem[idx+1]);
+    }else if(e.key === "ArrowLeft" && idx > 0){
+        abrirPorId(ordem[idx-1]);
+    }
+});
+
+/* inicializa o progresso */
+atualizarProgresso();
+</script>
+
+</body>
+</html>
